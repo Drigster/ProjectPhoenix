@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://il408oglhlgw"]
+
+[ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="1_mtk5n"]
+[ext_resource type="Script" path="res://Scripts/ItemData.cs" id="2_ba8gg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pve2x"]
+atlas = ExtResource("1_mtk5n")
+region = Rect2(0, 544, 32, 32)
+
+[resource]
+script = ExtResource("2_ba8gg")
+Name = "Wood"
+Description = "I pice of wood"
+Icon = SubResource("AtlasTexture_pve2x")
+MaxStack = 16
+IsStackable = true

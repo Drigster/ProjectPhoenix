@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://uota1sk3cua3"]
+
+[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_3rn0a"]
+[ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_xh5eo"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_haj2p"]
+action = &"inventory_toggle"
+
+[node name="PlayerHotbar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3rn0a")
+inputEventAction = SubResource("InputEventAction_haj2p")
+
+[node name="UIPlayerHotbar" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
+script = ExtResource("2_xh5eo")
+
+[node name="MarginContainer" type="MarginContainer" parent="UIPlayerHotbar"]
+layout_mode = 2
+
+[node name="ItemGrid" type="GridContainer" parent="UIPlayerHotbar/MarginContainer"]
+layout_mode = 2
+columns = 6
