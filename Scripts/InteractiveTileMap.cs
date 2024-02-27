@@ -21,10 +21,7 @@ public partial class InteractiveTileMap : TileMap
 				TileData tileData = GetCellTileData(layerId, tilePos);
 				int interactableType = (int)tileData.GetCustomData("InteractableType");
 				if(interactableType == 1){
-					GD.Print("Works!");
-					GD.Print(scenes);
 					if(scenes.ContainsKey(interactableType)){
-						GD.Print("Works2!");
 						ReplaceTileWithObject(layerId, tilePos, scenes[interactableType], GetTree().CurrentScene);
 					}
 				}
