@@ -8,7 +8,7 @@ public partial class UITransferSlot : PanelContainer
 	private bool _isTransfering;
 	public bool IsTransfering => _isTransfering;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("AmountLabel");
@@ -31,15 +31,6 @@ public partial class UITransferSlot : PanelContainer
 
     public void StartTransfer(UISlot transferedSlot)
 	{
-		if(GetParent().Name == "root")
-		{
-			CanvasLayer ui = GetNodeOrNull<CanvasLayer>("/root/Main/UI");
-			if(ui != null){
-				GetParent().RemoveChild(this);
-				ui.AddChild(this);
-			}
-		}
-
 		if(transferedSlot == null || transferedSlot.SlotData == null || transferedSlot.SlotData.ItemData == null)
 		{
 			return;
@@ -92,7 +83,9 @@ public partial class UITransferSlot : PanelContainer
 			}
 		}
 		uISlot.Reload();
-		_transferedSlot.Reload();
+		if(_transferedSlot != null){
+			_transferedSlot.Reload();
+		}
 	}
  
 	public void AbortTransfer(){

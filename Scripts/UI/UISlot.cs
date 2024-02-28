@@ -16,7 +16,7 @@ public partial class UISlot : PanelContainer
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("AmountLabel");
-		_transferSlot = GetNode<UITransferSlot>("/root/UITransferSlot");
+		_transferSlot = GetNode<ReferenceCenter>("/root/ReferenceCenter").UITransferSlot;
 	}
 
 	public void Init(SlotData slotData)

@@ -8,7 +8,6 @@ public partial class Interactor : Area2D
     private Node2D _activeInteractableNode;
     private IInteractable _activeInteractable => (IInteractable)_activeInteractableNode;
     private IInteractable _interactingWith;
-    private Player _player;
 
     public void OnBodyEntered(Node2D body){
         if(body is IInteractable){

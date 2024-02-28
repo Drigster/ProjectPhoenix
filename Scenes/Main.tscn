@@ -1,14 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://b67fs6vryoria"]
+[gd_scene load_steps=15 format=3 uid="uid://b67fs6vryoria"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_jlwdb"]
 [ext_resource type="PackedScene" uid="uid://mdnbbh5ruayu" path="res://Scenes/Objects/Player.tscn" id="2_vtdhk"]
 [ext_resource type="TileSet" uid="uid://bwl2lw7tl6w88" path="res://Sprites/Mystic Woods/tilesets/plains.tres" id="3_83lay"]
+[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="3_fv7y8"]
+[ext_resource type="Script" path="res://Scripts/SlotData.cs" id="4_2w1nd"]
 [ext_resource type="Script" path="res://Scripts/InteractiveTileMap.cs" id="4_nv8yd"]
 [ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="5_lnlsy"]
 [ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="6_yhbgv"]
 [ext_resource type="PackedScene" uid="uid://gy141ydha6p2" path="res://Scenes/UI/UIPlayerInventory.tscn" id="7_chxkj"]
 [ext_resource type="PackedScene" uid="uid://uota1sk3cua3" path="res://Scenes/UI/UIPlayerHotbar.tscn" id="8_lvrvh"]
 [ext_resource type="Script" path="res://Scripts/UI/UIPlayerHotbar.cs" id="9_hk2dw"]
+[ext_resource type="PackedScene" uid="uid://dn5fky731tmj0" path="res://Scenes/UI/UIDynamicInventory.tscn" id="10_ik0d6"]
+
+[sub_resource type="Resource" id="Resource_3m6b2"]
+script = ExtResource("4_2w1nd")
+_itemData = ExtResource("3_fv7y8")
+Amount = 16
+
+[sub_resource type="Resource" id="Resource_us03u"]
+script = ExtResource("4_2w1nd")
+_itemData = ExtResource("3_fv7y8")
+Amount = 2
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
@@ -17,6 +30,9 @@ script = ExtResource("1_jlwdb")
 [node name="Player" parent="." instance=ExtResource("2_vtdhk")]
 z_index = 1
 position = Vector2(-67, -10)
+
+[node name="Inventory" parent="Player" index="5"]
+Slots = Array[Object]([SubResource("Resource_3m6b2"), null, null, SubResource("Resource_us03u"), null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -45,24 +61,53 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_yhbgv")
 
-[node name="PlayerInventory" parent="UI/UIController" instance=ExtResource("7_chxkj")]
-
-[node name="UIPlayerInventory" parent="UI/UIController/PlayerInventory" index="0" node_paths=PackedStringArray("_playerData")]
-_playerData = NodePath("../../../../Player")
-
 [node name="PlayerHotbar" parent="UI/UIController" instance=ExtResource("8_lvrvh")]
-offset_left = 666.0
-offset_top = 1.0
-offset_right = 706.0
-offset_bottom = 41.0
+layout_mode = 0
 inputEventAction = null
 isActiveOnStart = true
 
 [node name="UIPlayerHotbar" parent="UI/UIController/PlayerHotbar" index="0" node_paths=PackedStringArray("_playerData")]
+layout_mode = 1
+offset_right = 436.0
+offset_bottom = 96.0
 script = ExtResource("9_hk2dw")
 _playerData = NodePath("../../../../Player")
 
+[node name="PlayerInventory" parent="UI/UIController" instance=ExtResource("7_chxkj")]
+layout_mode = 1
+offset_top = 90.0
+offset_bottom = 90.0
+
+[node name="UIPlayerInventory" parent="UI/UIController/PlayerInventory" index="0" node_paths=PackedStringArray("_playerData")]
+_playerData = NodePath("../../../../Player")
+
+[node name="DynamicInventory" parent="UI/UIController" instance=ExtResource("10_ik0d6")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+inputEventAction = null
+
+[node name="UIDynamicInventory" parent="UI/UIController/DynamicInventory" index="0"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -436.0
+offset_top = -82.0
+offset_right = 0.0
+offset_bottom = 82.0
+grow_horizontal = 0
+grow_vertical = 2
+
 [editable path="Player"]
 [editable path="Player/Interactor"]
-[editable path="UI/UIController/PlayerInventory"]
 [editable path="UI/UIController/PlayerHotbar"]
+[editable path="UI/UIController/PlayerInventory"]
+[editable path="UI/UIController/DynamicInventory"]

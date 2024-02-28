@@ -4,8 +4,8 @@ using System.Linq;
 
 public partial class UIController : Control
 {
-	[Export] private Array<UIElement> _nonTogglableUiElements = new Array<UIElement>();
-	[Export] private Array<UIActionGroup> _togglableUiElements = new Array<UIActionGroup>();
+	private Array<UIElement> _nonTogglableUiElements = new Array<UIElement>();
+	private Array<UIActionGroup> _togglableUiElements = new Array<UIActionGroup>();
 
 	public override void _Ready()
 	{

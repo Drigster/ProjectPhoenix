@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://uota1sk3cua3"]
+[gd_scene load_steps=5 format=3 uid="uid://uota1sk3cua3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_3rn0a"]
 [ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_xh5eo"]
+[ext_resource type="PackedScene" uid="uid://cctnbpxcvlymi" path="res://Scenes/UI/UISlot.tscn" id="3_fesw3"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_haj2p"]
 action = &"inventory_toggle"
@@ -9,8 +10,6 @@ action = &"inventory_toggle"
 [node name="PlayerHotbar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("1_3rn0a")
 inputEventAction = SubResource("InputEventAction_haj2p")
 
@@ -26,3 +25,21 @@ layout_mode = 2
 [node name="ItemGrid" type="GridContainer" parent="UIPlayerHotbar/MarginContainer"]
 layout_mode = 2
 columns = 6
+
+[node name="Slot" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2
+
+[node name="Slot2" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2
+
+[node name="Slot3" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2
+
+[node name="Slot4" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2
+
+[node name="Slot5" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2
+
+[node name="Slot6" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+layout_mode = 2

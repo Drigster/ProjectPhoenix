@@ -15,19 +15,24 @@ public partial class UIInventory : PanelContainer
 	public void SetInventoryData(InventorySystem inventoryData)
 	{
 		_inventorySystem = inventoryData;
-		PopulateItemGrid(inventoryData);
+		PopulateItemGrid();
 	}
 
 	public void Reload()
 	{
-		PopulateItemGrid(_inventorySystem);
+		PopulateItemGrid();
 	}
 
-	public void PopulateItemGrid(InventorySystem inventoryData)
+	public void PopulateItemGrid()
 	{
 		foreach (Node child in _slotsContainer.GetChildren())
 		{
 			child.QueueFree();
+		}
+
+		if(_inventorySystem == null)
+		{
+			return;
 		}
 
 		for (int i = 0; i < _inventorySystem.Slots.Count; i++)		

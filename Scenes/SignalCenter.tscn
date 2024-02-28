@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgdmlar0xd4v1"]
+
+[ext_resource type="Script" path="res://Scripts/SignalCenter.cs" id="1_eosba"]
+
+[node name="SignalCenter" type="Node"]
+script = ExtResource("1_eosba")
