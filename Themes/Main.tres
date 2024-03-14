@@ -1,18 +1,24 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bwp434eorup1y"]
-
-[ext_resource type="Texture2D" uid="uid://r4uhadmwdkqb" path="res://Sprites/UI/Panel.png" id="1_k54di"]
-[ext_resource type="StyleBox" uid="uid://yadq2sohb07n" path="res://Sprites/UI/Slot.tres" id="2_a80w8"]
-[ext_resource type="StyleBox" uid="uid://n3y31aympl72" path="res://Sprites/UI/Panel.tres" id="2_j0pta"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rayno"]
-texture = ExtResource("1_k54di")
-texture_margin_left = 16.0
-texture_margin_top = 16.0
-texture_margin_right = 16.0
-texture_margin_bottom = 16.0
+[gd_resource type="Theme" format=3 uid="uid://bwp434eorup1y"]
 
 [resource]
-Panel/styles/panel = SubResource("StyleBoxTexture_rayno")
-PanelContainer/styles/panel = ExtResource("2_j0pta")
+InventoryMargin/base_type = &"MarginContainer"
+InventoryMargin/constants/margin_bottom = 4
+InventoryMargin/constants/margin_left = 4
+InventoryMargin/constants/margin_right = 4
+InventoryMargin/constants/margin_top = 4
+InventoryPanel/base_type = &"PanelContainer"
+ItemAmount/base_type = &"Label"
+ItemAmount/colors/font_color = Color(1, 1, 1, 1)
+ItemAmount/colors/font_outline_color = Color(0, 0, 0, 1)
+ItemAmount/colors/font_shadow_color = Color(0, 0, 0, 1)
+ItemAmount/constants/line_spacing = 0
+ItemAmount/constants/outline_size = 6
+ItemAmount/constants/shadow_outline_size = 0
+ItemAmount/font_sizes/font_size = 16
 Slot/base_type = &"PanelContainer"
-Slot/styles/panel = ExtResource("2_a80w8")
+SlotMargin/base_type = &"MarginContainer"
+SlotMargin/constants/margin_bottom = 2
+SlotMargin/constants/margin_left = 2
+SlotMargin/constants/margin_right = 2
+SlotMargin/constants/margin_top = 2
+SlotPanel/base_type = &"Panel"

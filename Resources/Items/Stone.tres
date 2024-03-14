@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cdxx3st0h6klg"]
+
+[ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="1_f2073"]
+[ext_resource type="Script" path="res://Scripts/ItemData.cs" id="2_hxx0h"]
+
+[resource]
+script = ExtResource("2_hxx0h")
+Name = "Stone"
+Description = ""
+Icon = ExtResource("1_f2073")
+MaxStack = 16
+IsStackable = true

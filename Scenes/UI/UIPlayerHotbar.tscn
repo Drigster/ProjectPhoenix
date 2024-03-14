@@ -1,26 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://uota1sk3cua3"]
+[gd_scene load_steps=4 format=3 uid="uid://uota1sk3cua3"]
 
 [ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_3rn0a"]
-[ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_xh5eo"]
+[ext_resource type="Script" path="res://Scripts/UI/UIPlayerHotbar.cs" id="2_kl1r5"]
 [ext_resource type="PackedScene" uid="uid://cctnbpxcvlymi" path="res://Scenes/UI/UISlot.tscn" id="3_fesw3"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_haj2p"]
-action = &"inventory_toggle"
 
 [node name="PlayerHotbar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource("1_3rn0a")
-inputEventAction = SubResource("InputEventAction_haj2p")
 
 [node name="UIPlayerHotbar" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 32.0
-script = ExtResource("2_xh5eo")
+layout_mode = 1
+script = ExtResource("2_kl1r5")
 
 [node name="MarginContainer" type="MarginContainer" parent="UIPlayerHotbar"]
 layout_mode = 2
+theme_type_variation = &"InventoryMargin"
 
 [node name="ItemGrid" type="GridContainer" parent="UIPlayerHotbar/MarginContainer"]
 layout_mode = 2

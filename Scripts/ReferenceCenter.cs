@@ -1,18 +1,22 @@
 using Godot;
-using Microsoft.VisualBasic;
 
 public partial class ReferenceCenter : Node
 {
-	public UITransferSlot UITransferSlot;
+    [Export] public UITransferSlot UITransferSlot;
+    [Export] public Player Player;
+    [Export] public ItemsController ItemsController;
 
-    public async override void _Ready()
+    public async override void _EnterTree()
     {
-		CanvasLayer ui = GetNodeOrNull<CanvasLayer>("/root/Main/UI");
-		UITransferSlot = GetNodeOrNull<UITransferSlot>("/root/UITransferSlot");
-		await ToSignal(GetTree(), "process_frame");
-		if(ui != null && UITransferSlot != null){
-			GetTree().Root.RemoveChild(UITransferSlot);
-			ui.AddChild(UITransferSlot);
-		}
+        Player = GetNodeOrNull<Player>("/root/Main/Player");
+
+        CanvasLayer ui = GetNodeOrNull<CanvasLayer>("/root/Main/UI");
+        UITransferSlot = GetNodeOrNull<UITransferSlot>("/root/UITransferSlot");
+        await ToSignal(GetTree(), "process_frame");
+        if (ui != null && UITransferSlot != null)
+        {
+            GetTree().Root.RemoveChild(UITransferSlot);
+            ui.AddChild(UITransferSlot);
+        }
     }
 }

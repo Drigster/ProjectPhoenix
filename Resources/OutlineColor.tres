@@ -1,0 +1,4 @@
+[gd_resource type="VisualShaderNodeColorConstant" format=3 uid="uid://cjumnnvlhx0gv"]
+
+[resource]
+constant = Color(0, 1, 0, 1)

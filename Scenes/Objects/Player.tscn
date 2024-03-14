@@ -1,11 +1,9 @@
-[gd_scene load_steps=61 format=3 uid="uid://mdnbbh5ruayu"]
+[gd_scene load_steps=57 format=3 uid="uid://mdnbbh5ruayu"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_er5qw"]
 [ext_resource type="Texture2D" uid="uid://bpsfxtndmwwpg" path="res://Sprites/Player/IdleDown.png" id="1_rvew5"]
 [ext_resource type="Texture2D" uid="uid://b7et74wpsssvx" path="res://Sprites/Player/char1.png" id="2_ac4lt"]
 [ext_resource type="Script" path="res://Scripts/InventorySystem.cs" id="4_wbw1v"]
-[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="5_mkwfj"]
-[ext_resource type="Script" path="res://Scripts/SlotData.cs" id="6_konhu"]
 [ext_resource type="PackedScene" uid="uid://bswmcgon8oau" path="res://Scenes/Interactor.tscn" id="7_15ncf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_robea"]
@@ -469,18 +467,9 @@ states/Walk/position = Vector2(635, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_v6cv1"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ryl2c"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_l3hfl")]
 graph_offset = Vector2(-32, -15)
 
-[sub_resource type="Resource" id="Resource_3m6b2"]
-script = ExtResource("6_konhu")
-_itemData = ExtResource("5_mkwfj")
-Amount = 16
-
-[sub_resource type="Resource" id="Resource_us03u"]
-script = ExtResource("6_konhu")
-_itemData = ExtResource("5_mkwfj")
-Amount = 2
-
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_er5qw")
 
@@ -517,15 +506,16 @@ zoom = Vector2(2, 2)
 [node name="Inventory" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_wbw1v")
-Slots = Array[Object]([SubResource("Resource_3m6b2"), null, null, SubResource("Resource_us03u"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+Items = Array[Object]([])
 
 [node name="Hotbar" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_wbw1v")
-Slots = Array[Object]([null, null, null, null, null, null])
+Items = Array[Object]([])
 
 [node name="Interactor" parent="." instance=ExtResource("7_15ncf")]
-position = Vector2(0, -9)
+collision_layer = 0
+collision_mask = 32768
 
 [connection signal="body_entered" from="Interactor" to="Interactor" method="OnBodyEntered"]
 [connection signal="body_exited" from="Interactor" to="Interactor" method="OnBodyExited"]

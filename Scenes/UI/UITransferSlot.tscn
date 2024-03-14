@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://Scripts/UI/UITransferSlot.cs" id="1_vjdh8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sbc5q"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3y4vs"]
 
 [node name="TransferSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_sbc5q")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3y4vs")
 script = ExtResource("1_vjdh8")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

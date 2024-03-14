@@ -15,15 +15,10 @@ public partial class UIInventory : PanelContainer
 	public void SetInventoryData(InventorySystem inventoryData)
 	{
 		_inventorySystem = inventoryData;
-		PopulateItemGrid();
+		Reload();
 	}
 
 	public void Reload()
-	{
-		PopulateItemGrid();
-	}
-
-	public void PopulateItemGrid()
 	{
 		foreach (Node child in _slotsContainer.GetChildren())
 		{
@@ -35,17 +30,17 @@ public partial class UIInventory : PanelContainer
 			return;
 		}
 
-		for (int i = 0; i < _inventorySystem.Slots.Count; i++)		
+		for (int i = 0; i < _inventorySystem.Items.Count; i++)		
 		{
-			UISlot slotScene = (UISlot)SlotScene.Instantiate();
+			UISlot slotScene = SlotScene.Instantiate<UISlot>();
 			slotScene.Name = "Slot " + i;
 			_slotsContainer.AddChild(slotScene);
 
 			// slotScene.OnSlotClicked += inventoryData.OnSlotClicked;
 
-			if(_inventorySystem.Slots[i] != null)
+			if(_inventorySystem.Items[i] != null)
 			{
-				slotScene.Init(_inventorySystem.Slots[i]);
+				slotScene.Set(_inventorySystem.Items[i]);
 			}
 		}
 	}

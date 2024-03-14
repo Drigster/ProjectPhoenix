@@ -1,12 +1,12 @@
 using Godot;
 
+[GlobalClass]
 public partial class UIPlayerInventory : UIInventory
 {
-	[Export] private Player _playerData;
-
 	public override void _Ready()
 	{
 		base._Ready();
-		SetInventoryData(_playerData.GetNode<InventorySystem>("%Inventory"));
+		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
+		SetInventoryData(referenceCenter.Player.GetNode<InventorySystem>("%Inventory"));
 	}
 }

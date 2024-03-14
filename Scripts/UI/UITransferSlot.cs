@@ -5,6 +5,7 @@ public partial class UITransferSlot : PanelContainer
 	private TextureRect _icon;
 	private Label _amountLabel;
 	private UISlot _transferedSlot;
+	private ReferenceCenter _referenceCenter;
 	private bool _isTransfering;
 	public bool IsTransfering => _isTransfering;
 
@@ -12,6 +13,7 @@ public partial class UITransferSlot : PanelContainer
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("AmountLabel");
+		_referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
 	}
 
 	public override void _Process(double delta)
@@ -27,11 +29,16 @@ public partial class UITransferSlot : PanelContainer
 		if (@event.IsActionPressed("Cancel")){
 			AbortTransfer();
 		}
+		if (@event.IsActionPressed("Drop")){
+			_referenceCenter.ItemsController.Spawn(_transferedSlot.Item.ItemData, _transferedSlot.Item.Amount, _referenceCenter.Player.Position);
+			_transferedSlot.Set(null);
+			Clear();
+		}
     }
 
     public void StartTransfer(UISlot transferedSlot)
 	{
-		if(transferedSlot == null || transferedSlot.SlotData == null || transferedSlot.SlotData.ItemData == null)
+		if(transferedSlot == null || transferedSlot.Item == null || transferedSlot.Item.ItemData == null)
 		{
 			return;
 		}
@@ -42,10 +49,10 @@ public partial class UITransferSlot : PanelContainer
 		_transferedSlot.AmountLabel.Text = "";
 
 		_isTransfering = true;
-		_icon.Texture = _transferedSlot.SlotData.ItemData.Icon;
-		_amountLabel.Text = _transferedSlot.SlotData.Amount.ToString();
-		TooltipText = _transferedSlot.SlotData.ItemData.Name + "\n\n" + _transferedSlot.SlotData.ItemData.Description;
-		if(_transferedSlot.SlotData.Amount == 1 || !_transferedSlot.SlotData.ItemData.IsStackable)
+		_icon.Texture = _transferedSlot.Item.ItemData.Icon;
+		_amountLabel.Text = _transferedSlot.Item.Amount.ToString();
+		TooltipText = _transferedSlot.Item.ItemData.Name + "\n\n" + _transferedSlot.Item.ItemData.Description;
+		if(_transferedSlot.Item.Amount == 1 || !_transferedSlot.Item.ItemData.IsStackable)
 		{
 			_amountLabel.Visible = false;
 		}
@@ -64,21 +71,21 @@ public partial class UITransferSlot : PanelContainer
 			return;
 		}
 
-		if(uISlot.SlotData == null || uISlot.SlotData.ItemData == null)
+		if(uISlot.Item == null || uISlot.Item.ItemData == null)
 		{
-			uISlot.SlotData.Set(_transferedSlot.SlotData);
-			_transferedSlot.SlotData.Set(null);
+			uISlot.Set(_transferedSlot.Item);
+			_transferedSlot.Set(null);
 			Clear();
 		}
 		else{
-			if(uISlot.SlotData == _transferedSlot.SlotData)
+			if(uISlot.Item == _transferedSlot.Item)
 			{
 				AbortTransfer();
 			}
 			else{
-				SlotData tempSlotData = uISlot.SlotData;
-				uISlot.SlotData.Set(_transferedSlot.SlotData);
-				_transferedSlot.SlotData.Set(tempSlotData);
+				Item tempItem = uISlot.Item;
+				uISlot.Set(_transferedSlot.Item);
+				_transferedSlot.Set(tempItem);
 				StartTransfer(_transferedSlot);
 			}
 		}

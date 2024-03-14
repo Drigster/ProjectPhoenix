@@ -8,31 +8,32 @@ public partial class Chest : StaticBody2D, IInteractable
 	InventorySystem _inventorySystem;
 	private SignalCenter _signalCenter;
 
-    public IInteractable.InteractableType Type => IInteractable.InteractableType.Storrage;
+	public IInteractable.InteractableType Type => IInteractable.InteractableType.Storrage;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		_inventorySystem = GetNode<InventorySystem>("%InventorySystem");
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");
-        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
-		_inventorySystem.Slots = new Array<SlotData>();
-		for(int i = 0; i < size; i++){
-			_inventorySystem.Slots.Add(new SlotData());
+		_inventorySystem.Items = new Array<Item>();
+		for (int i = 0; i < size; i++)
+		{
+			_inventorySystem.Items.Add(new Item(null, 0));
 		}
-    }
+	}
 
-    public void Interact(Interactor interactor, out bool interactionSuccesful)
-    {
+	public void Interact(Interactor interactor, out bool interactionSuccesful)
+	{
 		_signalCenter.EmitSignal(nameof(_signalCenter.OpenDynamicInventory), _inventorySystem);
-        _animationPlayer.Play("Open");
+		_animationPlayer.Play("Open");
 
-        interactionSuccesful = true;
-    }
+		interactionSuccesful = true;
+	}
 
-    public void EndInteraction()
-    {
+	public void EndInteraction()
+	{
 		_signalCenter.EmitSignal(nameof(_signalCenter.CloseDynamicInventory));
-        _animationPlayer.Play("Close");
-    }
+		_animationPlayer.Play("Close");
+	}
 }

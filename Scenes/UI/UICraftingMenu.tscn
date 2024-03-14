@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnbi4kymerqne"]
+
+[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_ufw4c"]
+[ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_4tfjx"]
+[ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="3_iqku7"]
+[ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="4_0qalp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0dcs"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(64, 320, 32, 32)
+
+[node name="CraftingMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.0
+offset_top = -60.0
+offset_right = -237.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ufw4c")
+
+[node name="UICraftingMenu" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_4tfjx")
+
+[node name="MarginContainer" type="MarginContainer" parent="UICraftingMenu"]
+layout_mode = 2
+theme_type_variation = &"InventoryMargin"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Crafting menu"
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/Grid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_h0dcs")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("4_0qalp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Stone Axe
+"

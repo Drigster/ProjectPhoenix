@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Recepie" load_steps=7 format=3 uid="uid://t3qehfbab47k"]
+
+[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="1_ctban"]
+[ext_resource type="Script" path="res://Scripts/Recepie.cs" id="1_d5ovb"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="2_0emtr"]
+[ext_resource type="Resource" uid="uid://o63mu818bvsd" path="res://Resources/Items/Plank.tres" id="3_ul8l5"]
+
+[sub_resource type="Resource" id="Resource_bud5t"]
+script = ExtResource("2_0emtr")
+_itemData = ExtResource("1_ctban")
+_amount = 1
+
+[sub_resource type="Resource" id="Resource_mj6gq"]
+script = ExtResource("2_0emtr")
+_itemData = ExtResource("3_ul8l5")
+_amount = 2
+
+[resource]
+script = ExtResource("1_d5ovb")
+Input = Array[Object]([SubResource("Resource_bud5t")])
+Output = Array[Object]([SubResource("Resource_mj6gq")])
+Type = 0

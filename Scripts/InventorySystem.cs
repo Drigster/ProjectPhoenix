@@ -4,19 +4,19 @@ using Godot.Collections;
 [GlobalClass]
 public partial class InventorySystem : Node
 {
-    [Export] public Array<SlotData> Slots { get; set; }
+    [Export] public Array<Item> Items { get; set; }
 
     public override void _EnterTree()
     {
-        if(Slots == null)
+        if(Items == null)
         {
-            Slots = new Array<SlotData>();
+            Items = new Array<Item>();
         }
-        for(int i = 0; i < Slots.Count; i++)
+        for(int i = 0; i < Items.Count; i++)
         {
-            if(Slots[i] == null)
+            if(Items[i] == null)
             {
-                Slots[i] = new SlotData();
+                Items[i] = new Item(null, 0);
             }
         }
     }
