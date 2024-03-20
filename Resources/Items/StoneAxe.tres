@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://b5d0qsue6rs2p"]
+
+[ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="1_ann28"]
+[ext_resource type="Script" path="res://Scripts/ItemData.cs" id="2_2htg6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6ob2"]
+atlas = ExtResource("1_ann28")
+region = Rect2(32, 320, 32, 32)
+
+[resource]
+script = ExtResource("2_2htg6")
+Name = "Stone Axe"
+Description = ""
+Icon = SubResource("AtlasTexture_l6ob2")
+MaxStack = 1

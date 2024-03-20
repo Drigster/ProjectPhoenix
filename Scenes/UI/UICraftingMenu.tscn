@@ -1,13 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnbi4kymerqne"]
+[gd_scene load_steps=12 format=3 uid="uid://dnbi4kymerqne"]
 
 [ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_ufw4c"]
-[ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_4tfjx"]
+[ext_resource type="Script" path="res://Scripts/UI/UICraftingMenu.cs" id="2_24pmd"]
 [ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="3_iqku7"]
 [ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="4_0qalp"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h0dcs"]
+[sub_resource type="InputEventAction" id="InputEventAction_qon5n"]
+action = &"crafting_toggle"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w45w0"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(32, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr6tb"]
 atlas = ExtResource("3_iqku7")
 region = Rect2(64, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1dgk"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(96, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki800"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(128, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eg4gp"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(160, 320, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0avg"]
+atlas = ExtResource("3_iqku7")
+region = Rect2(192, 320, 32, 32)
 
 [node name="CraftingMenu" type="Control"]
 layout_mode = 3
@@ -16,24 +39,27 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -237.0
-offset_top = -60.0
-offset_right = -237.0
-offset_bottom = -60.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_ufw4c")
+inputEventAction = SubResource("InputEventAction_qon5n")
 
 [node name="UICraftingMenu" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -464.0
+offset_top = -291.0
+offset_right = 464.0
+offset_bottom = 291.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_4tfjx")
+script = ExtResource("2_24pmd")
 
 [node name="MarginContainer" type="MarginContainer" parent="UICraftingMenu"]
 layout_mode = 2
@@ -46,37 +72,141 @@ layout_mode = 2
 layout_mode = 2
 text = "Crafting menu"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Grid" type="GridContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="ItemsGrid" type="GridContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 6
 
-[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/Grid"]
+[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = SubResource("AtlasTexture_h0dcs")
+texture = SubResource("AtlasTexture_w45w0")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_nr6tb")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_m1dgk")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_ki800")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_eg4gp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_e0avg")
 expand_mode = 1
 stretch_mode = 5
 
 [node name="PanelContainer" type="PanelContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+custom_minimum_size = Vector2(0, 520)
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+size_flags_horizontal = 4
 texture = ExtResource("4_0qalp")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 26
 text = "Stone Axe
+"
+
+[node name="Description" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. "
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "+"
+
+[node name="ItemsToCraftInput" type="SpinBox" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="MinusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "-"
+
+[node name="Spacer" type="Control" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CraftButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+text = "Craft
 "

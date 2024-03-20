@@ -3,10 +3,10 @@ using Godot;
 [GlobalClass]
 public partial class UISlot : Panel
 {
+	[Signal] public delegate void OnSlotClickedEventHandler(InputEvent inputEvent);
 	private TextureRect _icon;
 	private Label _amountLabel;
 	[Export] private Item _item;
-	private UITransferSlot _transferSlot;
 
 	public TextureRect Icon => _icon;
 	public Label AmountLabel => _amountLabel;
@@ -17,7 +17,6 @@ public partial class UISlot : Panel
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("MarginContainer/AmountLabel");
-		_transferSlot = GetNode<ReferenceCenter>("/root/ReferenceCenter").UITransferSlot;
 	}
 
 	public void Set(Item item)
@@ -48,4 +47,11 @@ public partial class UISlot : Panel
 			TooltipText = "";
 		}
 	}
+
+    private void OnGuiInput(InputEvent @event)
+    {
+		if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed){
+        	EmitSignal(nameof(OnSlotClicked), @event);
+		}
+    }
 }

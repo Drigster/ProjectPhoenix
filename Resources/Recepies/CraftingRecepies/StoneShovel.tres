@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CraftingRecepie" load_steps=9 format=3 uid="uid://kinv4w8wpu01"]
+
+[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="1_thwxb"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="2_8dtaj"]
+[ext_resource type="Resource" uid="uid://cdxx3st0h6klg" path="res://Resources/Items/Stone.tres" id="3_8hsbx"]
+[ext_resource type="Script" path="res://Scripts/CraftingRecepie.cs" id="3_lvhdv"]
+[ext_resource type="Resource" uid="uid://bkoat6sgru6wl" path="res://Resources/Items/StoneShowel.tres" id="4_j3w1o"]
+
+[sub_resource type="Resource" id="Resource_bud5t"]
+script = ExtResource("2_8dtaj")
+_itemData = ExtResource("1_thwxb")
+_amount = 2
+
+[sub_resource type="Resource" id="Resource_5pe30"]
+script = ExtResource("2_8dtaj")
+_itemData = ExtResource("3_8hsbx")
+_amount = 1
+
+[sub_resource type="Resource" id="Resource_3aaeh"]
+script = ExtResource("2_8dtaj")
+_itemData = ExtResource("4_j3w1o")
+_amount = 1
+
+[resource]
+script = ExtResource("3_lvhdv")
+Input = Array[Object]([SubResource("Resource_bud5t"), SubResource("Resource_5pe30")])
+Output = SubResource("Resource_3aaeh")

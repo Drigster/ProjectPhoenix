@@ -12,5 +12,4 @@ script = ExtResource("2_ba8gg")
 Name = "Wood"
 Description = "I pice of wood"
 Icon = SubResource("AtlasTexture_pve2x")
-MaxStack = 16
-IsStackable = true
+MaxStack = 8

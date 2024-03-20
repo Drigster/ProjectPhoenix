@@ -1,13 +1,16 @@
+using System;
 using Godot;
 
 public partial class UITransferSlot : PanelContainer
 {
 	private TextureRect _icon;
 	private Label _amountLabel;
-	private UISlot _transferedSlot;
+	private ItemData _transferedData;
+	private int _transferedAmount;
 	private ReferenceCenter _referenceCenter;
-	private bool _isTransfering;
-	public bool IsTransfering => _isTransfering;
+	public bool IsTransfering => _transferedData != null;
+	public ItemData TransferedData => _transferedData;
+	public int TransferedAmount => _transferedAmount;
 
     public override void _Ready()
 	{
@@ -18,7 +21,7 @@ public partial class UITransferSlot : PanelContainer
 
 	public override void _Process(double delta)
 	{
-		if(_isTransfering)
+		if(IsTransfering)
 		{
 			Position = GetGlobalMousePosition();
 		}
@@ -27,32 +30,81 @@ public partial class UITransferSlot : PanelContainer
     public override void _UnhandledInput(InputEvent @event)
     {
 		if (@event.IsActionPressed("Cancel")){
-			AbortTransfer();
-		}
-		if (@event.IsActionPressed("Drop")){
-			_referenceCenter.ItemsController.Spawn(_transferedSlot.Item.ItemData, _transferedSlot.Item.Amount, _referenceCenter.Player.Position);
-			_transferedSlot.Set(null);
-			Clear();
+			//AbortTransfer();
 		}
     }
 
-    public void StartTransfer(UISlot transferedSlot)
+	public void StartTransfer(UISlot fromSlot, int amount)
 	{
-		if(transferedSlot == null || transferedSlot.Item == null || transferedSlot.Item.ItemData == null)
+		_transferedData = fromSlot.Item.ItemData;
+		_transferedAmount = amount;
+		ReloadVisual();
+
+		fromSlot.Item.Remove(amount);
+		fromSlot.Reload();
+	}
+
+    public void StartTransfer(UISlot fromSlot)
+	{
+		StartTransfer(fromSlot, fromSlot.Item.Amount);
+	}
+
+	public void TransferTo(UISlot toSlot, int amount)
+	{
+		if(toSlot.Item.ItemData != null && toSlot.Item.ItemData != _transferedData)
 		{
-			return;
+			throw new Exception("UITransferSlot.TransferTo | Can't transfer items of different types");
 		}
 
-		_transferedSlot = transferedSlot;
+		if(toSlot.Item.ItemData == null)
+		{
+			toSlot.Item.Set(_transferedData, amount);
+		}
+		else
+		{
+			if(toSlot.Item.Amount + amount > toSlot.Item.ItemData.MaxStack)
+			{
+				throw new Exception("UITransferSlot.TransferTo | Can't transfer items, target slot will be overflown");
+			}
+			
+			toSlot.Item.Add(amount);
+		}
 
-		_transferedSlot.Icon.Texture = null;
-		_transferedSlot.AmountLabel.Text = "";
+		if(_transferedAmount - amount > 0)
+		{
+			_transferedAmount -= amount;
+			ReloadVisual();
+		}
+		else
+		{
+			Clear();
+		}
+	}
 
-		_isTransfering = true;
-		_icon.Texture = _transferedSlot.Item.ItemData.Icon;
-		_amountLabel.Text = _transferedSlot.Item.Amount.ToString();
-		TooltipText = _transferedSlot.Item.ItemData.Name + "\n\n" + _transferedSlot.Item.ItemData.Description;
-		if(_transferedSlot.Item.Amount == 1 || !_transferedSlot.Item.ItemData.IsStackable)
+	public void TransferTo(UISlot toSlot)
+	{
+		TransferTo(toSlot, _transferedAmount);
+	}
+
+	public void SwapWith(UISlot slot)
+	{
+		if(slot.Item.ItemData == null)
+		{
+			throw new Exception("UITransferSlot.SwapWith | Can't swap with empty slot");
+		}
+		ItemData tempData = slot.Item.ItemData;
+		int tempAmount = slot.Item.Amount;
+		
+		slot.Item.Set(_transferedData, _transferedAmount);
+		_transferedData = tempData;
+		_transferedAmount = tempAmount;
+		ReloadVisual();
+	}
+
+	private void ReloadVisual(){
+		_icon.Texture = _transferedData.Icon;
+		_amountLabel.Text = _transferedAmount.ToString();
+		if(_transferedAmount == 1 || !_transferedData.IsStackable)
 		{
 			_amountLabel.Visible = false;
 		}
@@ -63,48 +115,10 @@ public partial class UITransferSlot : PanelContainer
 		Visible = true;
 	}
 
-	public void TransferTo(UISlot uISlot)
+	private void Clear()
 	{
-		if(uISlot == null)
-		{
-			AbortTransfer();
-			return;
-		}
-
-		if(uISlot.Item == null || uISlot.Item.ItemData == null)
-		{
-			uISlot.Set(_transferedSlot.Item);
-			_transferedSlot.Set(null);
-			Clear();
-		}
-		else{
-			if(uISlot.Item == _transferedSlot.Item)
-			{
-				AbortTransfer();
-			}
-			else{
-				Item tempItem = uISlot.Item;
-				uISlot.Set(_transferedSlot.Item);
-				_transferedSlot.Set(tempItem);
-				StartTransfer(_transferedSlot);
-			}
-		}
-		uISlot.Reload();
-		if(_transferedSlot != null){
-			_transferedSlot.Reload();
-		}
-	}
- 
-	public void AbortTransfer(){
-		if(_transferedSlot != null){
-			_transferedSlot.Reload();
-		}
-		Clear();
-	}
-
-	private void Clear(){
-		_transferedSlot = null;
-		_isTransfering = false;
+		_transferedData = null;
+		_transferedAmount = 0;
 		_icon.Texture = null;
 		_amountLabel.Text = "";
 		TooltipText = "";

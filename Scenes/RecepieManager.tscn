@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3 uid="uid://cc4waapml220y"]
+
+[ext_resource type="Script" path="res://Scripts/RecepieManager.cs" id="1_jk3mr"]
+[ext_resource type="Resource" uid="uid://t3qehfbab47k" path="res://Resources/Recepies/CraftingRecepies/Planks.tres" id="2_oedva"]
+[ext_resource type="Resource" uid="uid://8ij0hwa3v8po" path="res://Resources/Recepies/CraftingRecepies/StoneAxe.tres" id="3_myuwd"]
+[ext_resource type="Resource" uid="uid://cb8njsrloj4xq" path="res://Resources/Recepies/CraftingRecepies/StonePickaxe.tres" id="4_tw5y0"]
+[ext_resource type="Resource" uid="uid://kinv4w8wpu01" path="res://Resources/Recepies/CraftingRecepies/StoneShovel.tres" id="5_5rgni"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_jk3mr")
+_craftingRecepies = Array[Object]([ExtResource("2_oedva"), ExtResource("3_myuwd"), ExtResource("4_tw5y0"), ExtResource("5_5rgni")])

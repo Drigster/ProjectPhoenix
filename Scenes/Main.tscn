@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b67fs6vryoria"]
+[gd_scene load_steps=19 format=3 uid="uid://b67fs6vryoria"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_jlwdb"]
 [ext_resource type="PackedScene" uid="uid://mdnbbh5ruayu" path="res://Scenes/Objects/Player.tscn" id="2_vtdhk"]
@@ -6,56 +6,33 @@
 [ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="3_nfwgq"]
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="4_lim08"]
 [ext_resource type="Script" path="res://Scripts/InteractiveTileMap.cs" id="4_nv8yd"]
+[ext_resource type="Resource" uid="uid://cdxx3st0h6klg" path="res://Resources/Items/Stone.tres" id="5_6lafh"]
 [ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="5_lnlsy"]
 [ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="6_yhbgv"]
 [ext_resource type="PackedScene" uid="uid://gy141ydha6p2" path="res://Scenes/UI/UIPlayerInventory.tscn" id="7_chxkj"]
 [ext_resource type="PackedScene" uid="uid://uota1sk3cua3" path="res://Scenes/UI/UIPlayerHotbar.tscn" id="8_lvrvh"]
 [ext_resource type="PackedScene" uid="uid://dn5fky731tmj0" path="res://Scenes/UI/UIDynamicInventory.tscn" id="10_ik0d6"]
+[ext_resource type="PackedScene" uid="uid://dnbi4kymerqne" path="res://Scenes/UI/UICraftingMenu.tscn" id="12_dfor4"]
 
 [sub_resource type="Resource" id="Resource_m1ru0"]
 script = ExtResource("4_lim08")
 _itemData = ExtResource("3_nfwgq")
 _amount = 1
 
-[sub_resource type="Resource" id="Resource_rrrd0"]
+[sub_resource type="Resource" id="Resource_y6bsb"]
 script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_2f4ax"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_6nuwc"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_jlygf"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_4ou3p"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_ujgp8"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_k2bco"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
+_itemData = ExtResource("5_6lafh")
 _amount = 1
 
 [sub_resource type="Resource" id="Resource_hr78b"]
 script = ExtResource("4_lim08")
 _itemData = ExtResource("3_nfwgq")
-_amount = 4
+_amount = 8
+
+[sub_resource type="Resource" id="Resource_k8n7p"]
+script = ExtResource("4_lim08")
+_itemData = ExtResource("3_nfwgq")
+_amount = 8
 
 [sub_resource type="InputEventAction" id="InputEventAction_4ppby"]
 action = &"inventory_toggle"
@@ -71,10 +48,10 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="Inventory" parent="Player" index="5"]
-Items = Array[Object]([SubResource("Resource_m1ru0"), SubResource("Resource_rrrd0"), SubResource("Resource_2f4ax"), SubResource("Resource_6nuwc"), SubResource("Resource_jlygf"), SubResource("Resource_4ou3p"), SubResource("Resource_ujgp8"), SubResource("Resource_k2bco"), null, null, null, null, null, null, null, null, null, null])
+Items = Array[Object]([SubResource("Resource_m1ru0"), SubResource("Resource_y6bsb")])
 
 [node name="Hotbar" parent="Player" index="6"]
-Items = Array[Object]([SubResource("Resource_hr78b"), null, null, null, null, null])
+Items = Array[Object]([SubResource("Resource_hr78b"), SubResource("Resource_k8n7p"), null, null, null, null])
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -110,6 +87,7 @@ isActiveOnStart = true
 offset_top = 76.0
 offset_bottom = 76.0
 inputEventAction = SubResource("InputEventAction_4ppby")
+isActiveOnStart = true
 
 [node name="DynamicInventory" parent="UI/UIController" instance=ExtResource("10_ik0d6")]
 layout_mode = 1
@@ -120,6 +98,10 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 grow_horizontal = 0
 grow_vertical = 2
+
+[node name="CraftingMenu" parent="UI/UIController" instance=ExtResource("12_dfor4")]
+layout_mode = 1
+isActiveOnStart = true
 
 [editable path="Player"]
 [editable path="Player/Interactor"]

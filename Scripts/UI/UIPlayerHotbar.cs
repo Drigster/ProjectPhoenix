@@ -9,4 +9,9 @@ public partial class UIPlayerHotbar : UIInventory
 		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
 		SetInventoryData(referenceCenter.Player.GetNode<InventorySystem>("%Hotbar"));
 	}
+
+    public override void _Input(InputEvent @event)
+    {
+        base._Input(@event);
+    }
 }
