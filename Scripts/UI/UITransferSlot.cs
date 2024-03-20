@@ -29,7 +29,7 @@ public partial class UITransferSlot : PanelContainer
 
     public override void _UnhandledInput(InputEvent @event)
     {
-		if (@event.IsActionPressed("Cancel")){
+		if (@event.IsActionPressed("cancel")){
 			//AbortTransfer();
 		}
     }

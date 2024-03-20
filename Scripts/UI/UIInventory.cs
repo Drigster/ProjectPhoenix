@@ -111,5 +111,12 @@ public partial class UIInventory : PanelContainer
 		}
 	}
 
-	
+	public UISlot GetSlot(int index)
+	{
+		if(index >= _slotsContainer.GetChildCount()){
+			throw new IndexOutOfRangeException("UIInventory.GetSlot: Index out of range");
+		}
+
+		return _slotsContainer.GetChild<UISlot>(index);
+	}
 }

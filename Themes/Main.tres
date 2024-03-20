@@ -1,4 +1,7 @@
-[gd_resource type="Theme" format=3 uid="uid://bwp434eorup1y"]
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bwp434eorup1y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nsa6j"]
+bg_color = Color(1, 0.270588, 0.596078, 1)
 
 [resource]
 InventoryMargin/base_type = &"MarginContainer"
@@ -15,6 +18,8 @@ ItemAmount/constants/line_spacing = 0
 ItemAmount/constants/outline_size = 6
 ItemAmount/constants/shadow_outline_size = 0
 ItemAmount/font_sizes/font_size = 16
+SelectedSlotPanel/base_type = &"Panel"
+SelectedSlotPanel/styles/panel = SubResource("StyleBoxFlat_nsa6j")
 Slot/base_type = &"PanelContainer"
 SlotMargin/base_type = &"MarginContainer"
 SlotMargin/constants/margin_bottom = 2

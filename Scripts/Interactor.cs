@@ -62,7 +62,7 @@ public partial class Interactor : Area2D
 
     public override void _Input(InputEvent @event)
     {
-        if(@event.IsActionPressed("Interact") && _activeInteractable != null){
+        if(@event.IsActionPressed("interact") && _activeInteractable != null){
             bool isSuccesfull;
             if(_interactingWith != null){
                 _interactingWith.EndInteraction();
