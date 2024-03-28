@@ -20,7 +20,7 @@ public partial class InteractiveTileMap : TileMap
 			{
 				TileData tileData = GetCellTileData(layerId, tilePos);
 				int interactableType = (int)tileData.GetCustomData("InteractableType");
-				if(interactableType == 1){
+				if(interactableType != 0){
 					if(scenes.ContainsKey(interactableType)){
 						ReplaceTileWithObject(layerId, tilePos, scenes[interactableType], GetTree().CurrentScene);
 					}

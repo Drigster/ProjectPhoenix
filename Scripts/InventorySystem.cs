@@ -40,9 +40,10 @@ public partial class InventorySystem : Node
         amount = 0;
         for(int i = 0; i < Items.Count; i++)
         {
-            if(Items[i].ItemData == itemData || Items[i].ItemData == null)
+            Item item = Items[i];
+            if(item.ItemData == itemData || item.ItemData == null)
             {
-                amount += itemData.MaxStack - Items[i].Amount;
+                amount += itemData.MaxStack - item.Amount;
             }
         }
         return amount > 0;
@@ -62,39 +63,51 @@ public partial class InventorySystem : Node
         Array<Item> items = GetItems(itemData);
         for (int i = 0; i < items.Count; i++)
         {
-            if(items[i].Amount + amount <= items[i].ItemData.MaxStack)
+            Item item = Items[i];
+            if(item.Amount + amount <= itemData.MaxStack)
             {
-                items[i].Add(amount);
+                item.Add(amount);
                 EmitSignal(nameof(OnInventoryChanged));
                 return;
             }
             else
             {
-                amount -= items[i].ItemData.MaxStack - items[i].Amount;
-                items[i].Add(items[i].ItemData.MaxStack - items[i].Amount);
+                amount -= itemData.MaxStack - item.Amount;
+                item.Add(itemData.MaxStack - item.Amount);
                 EmitSignal(nameof(OnInventoryChanged));
             }
         }
         for(int i = 0; i < Items.Count; i++)
         {
-            if(Items[i].ItemData == null)
+            if(Items[i].ItemData != null){
+                continue;
+            }
+            Item item = Items[i];
+            if(item.Amount + amount <= itemData.MaxStack)
             {
-                Items[i] = new Item(itemData, amount);
+                item.Set(itemData, amount);
                 EmitSignal(nameof(OnInventoryChanged));
                 return;
             }
+            else
+            {
+                amount -= itemData.MaxStack - item.Amount;
+                item.Set(itemData, itemData.MaxStack - item.Amount);
+                EmitSignal(nameof(OnInventoryChanged));
+            }
         }
 
-        GD.PushError("InventorySystem.AddItems: Could not add all items.");
+        GD.PushError("InventorySystem.AddItems: Could not add all Items.");
     }
 
     public int CountItems(ItemData itemData){
         int count = 0;
         for(int i = 0; i < Items.Count; i++)
         {
-            if(Items[i].ItemData == itemData)
+            Item item = Items[i];
+            if(item.ItemData == itemData)
             {
-                count += Items[i].Amount;
+                count += item.Amount;
             }
         }
         return count;
@@ -114,18 +127,19 @@ public partial class InventorySystem : Node
 
         for(int i = 0; i < Items.Count; i++)
         {
-            if(Items[i].ItemData == itemData)
+            Item item = Items[i];
+            if(item.ItemData == itemData)
             {
-                if(Items[i].Amount >= amount)
+                if(item.Amount >= amount)
                 {
-                    Items[i].Remove(amount);
+                    item.Remove(amount);
                     EmitSignal(nameof(OnInventoryChanged));
                     return;
                 }
                 else
                 {
-                    amount -= Items[i].Amount;
-                    Items[i] = new Item(null, 0);
+                    amount -= item.Amount;
+                    item = new Item(null, 0);
                     EmitSignal(nameof(OnInventoryChanged));
                 }
             }
@@ -138,9 +152,10 @@ public partial class InventorySystem : Node
         Array<Item> items = new Array<Item>();
         for(int i = 0; i < Items.Count; i++)
         {
-            if(Items[i].ItemData == itemData)
+            Item item = Items[i];
+            if(item.ItemData == itemData)
             {
-                items.Add(Items[i]);
+                items.Add(item);
             }
         }
 

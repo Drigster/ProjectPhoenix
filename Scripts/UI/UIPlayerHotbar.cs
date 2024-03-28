@@ -4,12 +4,14 @@ using Godot;
 public partial class UIPlayerHotbar : UIInventory
 {
 	private int _selectedSlot = -1;
+	private Player player;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
-		SetInventoryData(referenceCenter.Player.GetNode<InventorySystem>("%Hotbar"));
+		player = referenceCenter.Player;
+		SetInventoryData(player.GetNode<InventorySystem>("%Hotbar"));
 	}
 
     public override void _Input(InputEvent @event)
@@ -37,6 +39,26 @@ public partial class UIPlayerHotbar : UIInventory
 		else if (@event.IsActionPressed("select_slot_6"))
 		{
 			SelectSlot(5);
+		}
+
+		if (@event.IsActionPressed("action1"))
+		{
+			if(_selectedSlot != -1){
+				Item item = GetSlot(_selectedSlot).Item;
+				if((item.ItemData as Tool) != null){
+					(item.ItemData as Tool).Action(player, player.GetGlobalMousePosition());
+				}
+			}
+		}
+
+		if (@event.IsActionPressed("action2"))
+		{
+			if(_selectedSlot != -1){
+				Item item = GetSlot(_selectedSlot).Item;
+				if((item.ItemData as ISecondaryAction) != null){
+					(item.ItemData as ISecondaryAction).SecondaryAction();
+				}
+			}
 		}
     }
 

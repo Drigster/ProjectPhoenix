@@ -1,38 +1,23 @@
-[gd_scene load_steps=19 format=3 uid="uid://b67fs6vryoria"]
+[gd_scene load_steps=16 format=3 uid="uid://b67fs6vryoria"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_jlwdb"]
 [ext_resource type="PackedScene" uid="uid://mdnbbh5ruayu" path="res://Scenes/Objects/Player.tscn" id="2_vtdhk"]
 [ext_resource type="TileSet" uid="uid://bwl2lw7tl6w88" path="res://Sprites/Mystic Woods/tilesets/plains.tres" id="3_83lay"]
-[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="3_nfwgq"]
+[ext_resource type="Resource" uid="uid://b5d0qsue6rs2p" path="res://Resources/Items/Tools/StoneAxe.tres" id="3_fpthk"]
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="4_lim08"]
 [ext_resource type="Script" path="res://Scripts/InteractiveTileMap.cs" id="4_nv8yd"]
-[ext_resource type="Resource" uid="uid://cdxx3st0h6klg" path="res://Resources/Items/Stone.tres" id="5_6lafh"]
 [ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="5_lnlsy"]
 [ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="6_yhbgv"]
 [ext_resource type="PackedScene" uid="uid://gy141ydha6p2" path="res://Scenes/UI/UIPlayerInventory.tscn" id="7_chxkj"]
 [ext_resource type="PackedScene" uid="uid://uota1sk3cua3" path="res://Scenes/UI/UIPlayerHotbar.tscn" id="8_lvrvh"]
+[ext_resource type="PackedScene" uid="uid://xvibgtdca6t7" path="res://Scenes/Objects/BigTree.tscn" id="9_7skht"]
 [ext_resource type="PackedScene" uid="uid://dn5fky731tmj0" path="res://Scenes/UI/UIDynamicInventory.tscn" id="10_ik0d6"]
 [ext_resource type="PackedScene" uid="uid://dnbi4kymerqne" path="res://Scenes/UI/UICraftingMenu.tscn" id="12_dfor4"]
 
-[sub_resource type="Resource" id="Resource_m1ru0"]
+[sub_resource type="Resource" id="Resource_ct2ti"]
 script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
+_itemData = ExtResource("3_fpthk")
 _amount = 1
-
-[sub_resource type="Resource" id="Resource_y6bsb"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("5_6lafh")
-_amount = 1
-
-[sub_resource type="Resource" id="Resource_hr78b"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 8
-
-[sub_resource type="Resource" id="Resource_k8n7p"]
-script = ExtResource("4_lim08")
-_itemData = ExtResource("3_nfwgq")
-_amount = 8
 
 [sub_resource type="InputEventAction" id="InputEventAction_4ppby"]
 action = &"inventory_toggle"
@@ -48,10 +33,10 @@ collision_layer = 8
 collision_mask = 2
 
 [node name="Inventory" parent="Player" index="5"]
-Items = Array[Object]([SubResource("Resource_m1ru0"), SubResource("Resource_y6bsb")])
+Items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="Hotbar" parent="Player" index="6"]
-Items = Array[Object]([SubResource("Resource_hr78b"), SubResource("Resource_k8n7p"), null, null, null, null])
+Items = Array[Object]([SubResource("Resource_ct2ti"), null, null, null, null, null])
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -62,16 +47,18 @@ layer_0/tile_data = PackedInt32Array(-589842, 2, 0, -524305, 2, 0, -524304, 2, 0
 layer_1/name = "Objects"
 layer_1/y_sort_enabled = true
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array(1179617, 524294, 6, 262114, 6, 5, -196637, 6, 5, -327708, 655366, 7, 1834981, 6, 5, -851994, 655366, 7, 1245160, 6, 5, -262166, 6, 5, -983060, 6, 5, -1245199, 6, 5, 131057, 6, 5, -524300, 393222, 7, -131083, 393222, 7, 1048569, 393222, 7, 458748, 655366, 7, 327679, 393222, 7, -917502, 655366, 7, -851963, 655366, 7, -1310711, 655366, 7, 1835020, 393222, 7, -655347, 524294, 6, 1703949, 6, 5, -851954, 393222, 7, 1179664, 655366, 7, 720912, 393222, 7, -1310704, 524294, 6, 327697, 6, 5, -458732, 524294, 6, 1769494, 524294, 6, 24, 393222, 7, 589852, 6, 5, -262115, 524294, 6, -327649, 393222, 7, 1245216, 524294, 6, -1114078, 393222, 7, -720862, 524294, 6, -655325, 393222, 7, -786397, 655366, 7, -1179613, 655366, 7, 196644, 6, 5, -1310683, 524294, 6, 131061, 6, 5, 196597, 6, 5, 262133, 6, 5, 65525, 6, 5, 262122, 6, 5, 196585, 655366, 7, 196586, 655366, 7, 196587, 655366, 7, 196588, 393222, 7, 0, 6, 5, 589824, 327686, 0, 262136, 327686, 0, 720896, 327686, 0, -589832, 327686, 0, -589831, 327686, 0, -524295, 327686, 0, -524294, 327686, 0, -458758, 327686, 0, -458759, 327686, 0, -458760, 327686, 0, -393224, 327686, 0, -393223, 327686, 0, -393222, 327686, 0, -458757, 327686, 0, -589830, 327686, 0, -524296, 327686, 0)
+layer_1/tile_data = PackedInt32Array(1179617, 524294, 6, 262114, 6, 5, -196637, 6, 5, -327708, 655366, 7, 1834981, 6, 5, -851994, 655366, 7, 1245160, 6, 5, -262166, 6, 5, -983060, 6, 5, -1245199, 6, 5, 131057, 6, 5, -524300, 393222, 7, -131083, 393222, 7, 1048569, 393222, 7, 458748, 655366, 7, 327679, 393222, 7, -917502, 655366, 7, -851963, 655366, 7, -1310711, 655366, 7, 1835020, 393222, 7, -655347, 524294, 6, 1703949, 6, 5, -851954, 393222, 7, 1179664, 655366, 7, 720912, 393222, 7, -1310704, 524294, 6, 327697, 6, 5, -458732, 524294, 6, 1769494, 524294, 6, 24, 393222, 7, 589852, 6, 5, -262115, 524294, 6, -327649, 393222, 7, 1245216, 524294, 6, -1114078, 393222, 7, -720862, 524294, 6, -655325, 393222, 7, -786397, 655366, 7, -1179613, 655366, 7, 196644, 6, 5, -1310683, 524294, 6, 131061, 6, 5, 196597, 6, 5, 262133, 6, 5, 65525, 6, 5, 262122, 6, 5, 196585, 655366, 7, 196586, 655366, 7, 196587, 655366, 7, 196588, 393222, 7, 0, 6, 5, 589824, 327686, 0, 262136, 327686, 0, 720896, 327686, 0, -262143, 6, 5)
 script = ExtResource("4_nv8yd")
 TileData = {
-1: ExtResource("5_lnlsy")
+1: ExtResource("5_lnlsy"),
+2: ExtResource("9_7skht")
 }
 
 [node name="UI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
 
 [node name="UIController" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -101,7 +88,9 @@ grow_vertical = 2
 
 [node name="CraftingMenu" parent="UI/UIController" instance=ExtResource("12_dfor4")]
 layout_mode = 1
-isActiveOnStart = true
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(26, -55)
 
 [editable path="Player"]
 [editable path="Player/Interactor"]

@@ -80,6 +80,7 @@ script = ExtResource("1_njf3j")
 [node name="InventorySystem" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_o3k2d")
+Items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true

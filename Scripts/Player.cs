@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Player : CharacterBody2D
+public partial class Player : CharacterBody2D, IStorrage
 {
 	[Export] private float Speed = 100.0f;
 	private AnimationTree _animationTree;
@@ -21,10 +21,8 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if(@event.IsActionPressed("inventory_toggle"))
-		{
-		}
-	}
+    public InventorySystem GetInventory()
+    {
+		return GetNode<InventorySystem>("%Inventory");
+    }
 }

@@ -17,8 +17,15 @@ public partial class UIInventory : PanelContainer
 
 	public void SetInventoryData(InventorySystem inventoryData)
 	{
-		_inventorySystem = inventoryData;
-		_inventorySystem.OnInventoryChanged += Reload;
+		if(inventoryData != null)
+		{
+			_inventorySystem = inventoryData;
+			_inventorySystem.OnInventoryChanged += Reload;
+		}
+		else
+		{
+			_inventorySystem = null;
+		}
 		Reload();
 	}
 

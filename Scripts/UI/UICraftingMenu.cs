@@ -104,11 +104,9 @@ public partial class UICraftingMenu : PanelContainer
 			{
 				int itemsToRemove = Math.Min(input.Amount, _playerInventory.CountItems(input.ItemData));
 				if(itemsToRemove  > 0){
-					GD.Print(itemsToRemove);
 					_playerInventory.RemoveItems(input.ItemData, itemsToRemove);
 				}
 				if(input.Amount - itemsToRemove > 0){
-					GD.Print(itemsToRemove);
 					_playerHotbar.RemoveItems(input.ItemData, input.Amount - itemsToRemove);
 				}
 			}

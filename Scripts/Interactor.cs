@@ -52,9 +52,9 @@ public partial class Interactor : Area2D
             ShaderMaterial material = new ShaderMaterial(){
                 Shader = _outlineShader
             };
-            if(((IInteractable)_closestInteractableNode).Type == IInteractable.InteractableType.Resource)
+            if(((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Resource)
                 material.SetShaderParameter("OutlineColor", new Color(1, 0, 0));
-            else if(((IInteractable)_closestInteractableNode).Type == IInteractable.InteractableType.Storrage)
+            else if(((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Storrage)
                 material.SetShaderParameter("OutlineColor", new Color(0, 1, 0));
             _closestInteractableNode.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material = material;
         }

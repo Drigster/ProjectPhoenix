@@ -1,26 +1,20 @@
 using Godot;
 using Godot.Collections;
 
-public partial class Chest : StaticBody2D, IInteractable
+public partial class Chest : StaticBody2D, IInteractable, IStorrage
 {
 	private AnimationPlayer _animationPlayer;
 	[Export] private int size = 12;
 	InventorySystem _inventorySystem;
 	private SignalCenter _signalCenter;
 
-	public IInteractable.InteractableType Type => IInteractable.InteractableType.Storrage;
+	public IInteractable.InteractableTypes InteractableType => IInteractable.InteractableTypes.Storrage;
 
 	public override void _Ready()
 	{
 		_inventorySystem = GetNode<InventorySystem>("%InventorySystem");
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-
-		_inventorySystem.Items = new Array<Item>();
-		for (int i = 0; i < size; i++)
-		{
-			_inventorySystem.Items.Add(new Item(null, 0));
-		}
 	}
 
 	public void Interact(Interactor interactor, out bool interactionSuccesful)
@@ -36,4 +30,9 @@ public partial class Chest : StaticBody2D, IInteractable
 		_signalCenter.EmitSignal(nameof(_signalCenter.CloseDynamicInventory));
 		_animationPlayer.Play("Close");
 	}
+
+    public InventorySystem GetInventory()
+    {
+		return _inventorySystem;
+    }
 }

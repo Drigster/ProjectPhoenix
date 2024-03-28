@@ -9,6 +9,8 @@ public partial class UIController : Control
 
 	public override void _Ready()
 	{
+		Visible = true;
+
 		foreach (Node child in GetChildren()){
 			if (child is UIElement){
 				UIElement uiElement = (UIElement)child;

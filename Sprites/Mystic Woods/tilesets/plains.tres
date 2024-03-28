@@ -710,6 +710,7 @@ texture = ExtResource("6_b0mnb")
 0:5/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:5/0/physics_layer_0/angular_velocity = 0.0
 0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12, 15, -12, 23, -7, 26, 10, 26, 12, 22, 12, 18, 9, 14, 3, 11, -6, 11)
+0:5/0/custom_data_0 = 2
 6:7/size_in_atlas = Vector2i(2, 2)
 6:7/0 = 0
 6:7/0/y_sort_origin = 15
