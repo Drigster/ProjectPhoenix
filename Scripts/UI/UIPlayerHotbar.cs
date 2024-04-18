@@ -14,6 +14,29 @@ public partial class UIPlayerHotbar : UIInventory
 		SetInventoryData(player.GetNode<InventorySystem>("%Hotbar"));
 	}
 
+    public override void _Input(InputEvent @event)
+    {
+		if (@event.IsActionPressed("action1"))
+		{
+			if(_selectedSlot != -1){
+				Item item = GetSlot(_selectedSlot).Item;
+				if((item.ItemData as Tool) != null){
+					(item.ItemData as Tool).Action(player, player.GetGlobalMousePosition());
+				}
+			}
+		}
+
+		if (@event.IsActionPressed("action2"))
+		{
+			if(_selectedSlot != -1){
+				Item item = GetSlot(_selectedSlot).Item;
+				if((item.ItemData as ISecondaryAction) != null){
+					(item.ItemData as ISecondaryAction).SecondaryAction();
+				}
+			}
+		}
+    }
+
     public override void _UnhandledInput(InputEvent @event)
     {
 		if (@event.IsActionPressed("select_slot_1"))
@@ -39,26 +62,6 @@ public partial class UIPlayerHotbar : UIInventory
 		else if (@event.IsActionPressed("select_slot_6"))
 		{
 			SelectSlot(5);
-		}
-
-		if (@event.IsActionPressed("action1"))
-		{
-			if(_selectedSlot != -1){
-				Item item = GetSlot(_selectedSlot).Item;
-				if((item.ItemData as Tool) != null){
-					(item.ItemData as Tool).Action(player, player.GetGlobalMousePosition());
-				}
-			}
-		}
-
-		if (@event.IsActionPressed("action2"))
-		{
-			if(_selectedSlot != -1){
-				Item item = GetSlot(_selectedSlot).Item;
-				if((item.ItemData as ISecondaryAction) != null){
-					(item.ItemData as ISecondaryAction).SecondaryAction();
-				}
-			}
 		}
     }
 
