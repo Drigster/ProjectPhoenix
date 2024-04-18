@@ -40,14 +40,22 @@ public partial class UIController : Control
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		foreach (UIActionGroup uiActionGroup in _togglableUiElements){
-			if (@event.IsActionPressed(uiActionGroup.Action.Action)){
-				if(uiActionGroup.Elements.Count > 0){
-					HideAll();
-				}
-				uiActionGroup.IsOpen = !uiActionGroup.IsOpen;
-				foreach (UIElement uiElement in uiActionGroup.Elements){
-					uiElement.Visible = uiActionGroup.IsOpen;
+		if(@event.IsActionPressed("cancel")){
+			HideAll();
+		}
+		else {
+			foreach (UIActionGroup uiActionGroup in _togglableUiElements){
+				if (@event.IsActionPressed(uiActionGroup.Action.Action)){
+					if(uiActionGroup.IsOpen){
+						HideAll();
+					}
+					else{
+						HideAll();
+						uiActionGroup.IsOpen = true;
+						foreach (UIElement uiElement in uiActionGroup.Elements){
+							uiElement.Open();
+						}
+					}
 				}
 			}
 		}
@@ -55,8 +63,9 @@ public partial class UIController : Control
 
 	public void HideAll() {
 		foreach (UIActionGroup uiActionGroup in _togglableUiElements){
+			uiActionGroup.IsOpen = false;
 			foreach (UIElement uiElement in uiActionGroup.Elements){
-				uiElement.Visible = false;
+				uiElement.Close();
 			}
 		}
 	}
