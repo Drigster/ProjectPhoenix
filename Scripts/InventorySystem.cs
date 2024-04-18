@@ -64,7 +64,10 @@ public partial class InventorySystem : Node
         for (int i = 0; i < items.Count; i++)
         {
             Item item = Items[i];
-            if(item.Amount + amount <= itemData.MaxStack)
+            if(item.Amount == itemData.MaxStack){
+                continue;
+            }
+            else if(item.Amount + amount <= itemData.MaxStack)
             {
                 item.Add(amount);
                 EmitSignal(nameof(OnInventoryChanged));
