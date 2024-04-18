@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dnbi4kymerqne"]
+[gd_scene load_steps=13 format=3 uid="uid://dnbi4kymerqne"]
 
 [ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_ufw4c"]
 [ext_resource type="Script" path="res://Scripts/UI/UICraftingMenu.cs" id="2_24pmd"]
 [ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="3_iqku7"]
 [ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="4_0qalp"]
+[ext_resource type="PackedScene" uid="uid://blqclpeoac5ec" path="res://Scenes/UI/UIRecepieIngredient.tscn" id="5_8ibsp"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_qon5n"]
 action = &"crafting_toggle"
@@ -174,31 +175,62 @@ layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. "
 autowrap_mode = 3
 
+[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 26
+text = "Ingridients"
+
+[node name="IngridientsContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RecepieIngredient" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+layout_mode = 2
+
+[node name="RecepieIngredient2" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+layout_mode = 2
+
+[node name="RecepieIngredient3" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MinusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 36
+text = "-"
+
+[node name="ItemsToCraftInput" type="LineEdit" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 1
+theme_override_font_sizes/font_size = 26
+text = "1"
+max_length = 3
+virtual_keyboard_type = 2
+
+[node name="PlusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 36
 text = "+"
 
-[node name="ItemsToCraftInput" type="SpinBox" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 0)
-layout_mode = 2
-min_value = 1.0
-value = 1.0
-
-[node name="MinusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 theme_override_font_sizes/font_size = 36
-text = "-"
+text = ">"
 
 [node name="Spacer" type="Control" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -208,5 +240,11 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
+focus_mode = 0
 text = "Craft
 "
+
+[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MinusButton" to="UICraftingMenu" method="OnMinusButtonPressed"]
+[connection signal="text_changed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsToCraftInput" to="UICraftingMenu" method="OnInputTextChanged"]
+[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/PlusButton" to="UICraftingMenu" method="OnPlusButtonPressed"]
+[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MaxButton" to="UICraftingMenu" method="OnPlusButtonPressed"]

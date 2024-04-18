@@ -73,10 +73,6 @@ public partial class InventorySystem : Node
             }
             else if((item.Amount + amount) <= itemData.MaxStack)
             {
-                GD.Print((item.Amount + amount) <= itemData.MaxStack);
-                GD.Print(itemData.MaxStack);
-                GD.Print(item.Amount + amount);
-                GD.Print(item.Amount, " ", amount);
                 item.Add(amount);
                 EmitSignal(nameof(OnInventoryChanged));
                 return;
