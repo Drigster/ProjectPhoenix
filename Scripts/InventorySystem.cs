@@ -64,11 +64,19 @@ public partial class InventorySystem : Node
         for (int i = 0; i < items.Count; i++)
         {
             Item item = Items[i];
+            if(item.ItemData != itemData){
+                continue;
+            }
+            
             if(item.Amount == itemData.MaxStack){
                 continue;
             }
-            else if(item.Amount + amount <= itemData.MaxStack)
+            else if((item.Amount + amount) <= itemData.MaxStack)
             {
+                GD.Print((item.Amount + amount) <= itemData.MaxStack);
+                GD.Print(itemData.MaxStack);
+                GD.Print(item.Amount + amount);
+                GD.Print(item.Amount, " ", amount);
                 item.Add(amount);
                 EmitSignal(nameof(OnInventoryChanged));
                 return;
