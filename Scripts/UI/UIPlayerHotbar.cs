@@ -11,7 +11,7 @@ public partial class UIPlayerHotbar : UIInventory
 		base._Ready();
 		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
 		player = referenceCenter.Player;
-		SetInventoryData(player.GetNode<InventorySystem>("%Hotbar"));
+		SetInventoryData(player.GetNode<InventorySystem>("%InventorySystemGroup/%Hotbar"));
 	}
 
     public override void _Process(double delta)

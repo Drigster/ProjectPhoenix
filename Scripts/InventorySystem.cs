@@ -3,124 +3,99 @@ using Godot;
 using Godot.Collections;
 
 [GlobalClass]
-public partial class InventorySystem : Node
+public partial class InventorySystem : Node, IInventorySystem
 {
 	[Signal] public delegate void OnInventoryChangedEventHandler();
 
-    [Export] public Array<Item> Items { get; set; }
+    [Export] private Array<Item> _items;
+
+    public Array<Item> Items => _items;
+
+    public InventorySystem(){
+        _items = new Array<Item>();
+    }
+
+    public InventorySystem(Array<Item> items){
+        _items = items;
+    }
 
     public override void _EnterTree()
     {
-        if(Items == null)
+        if(_items == null)
         {
-            Items = new Array<Item>();
+            _items = new Array<Item>();
         }
-        for(int i = 0; i < Items.Count; i++)
+        for(int i = 0; i < _items.Count; i++)
         {
-            if(Items[i] == null)
+            if(_items[i] == null)
             {
-                Items[i] = new Item(null, 0);
+                _items[i] = new Item(null, 0);
             }
         }
     }
-    
-    public bool CanAddItem(Item item)
-    {
-        return CanAddItems(item.ItemData, item.Amount);
-    }
 
-    public bool CanAddItems(ItemData itemData, int amount)
+    public void AddItems(Item item)
     {
-        CanAddItemsCount(itemData, out int amountToAdd);
-        return amountToAdd >= amount;
-    }
-
-    public bool CanAddItemsCount(ItemData itemData, out int amount)
-    {
-        amount = 0;
-        for(int i = 0; i < Items.Count; i++)
-        {
-            Item item = Items[i];
-            if(item.ItemData == itemData || item.ItemData == null)
-            {
-                amount += itemData.MaxStack - item.Amount;
-            }
-        }
-        return amount > 0;
-    }
-
-    public void AddItem(Item item){
         AddItems(item.ItemData, item.Amount);
     }
 
     public void AddItems(ItemData itemData, int amount)
     {
-        if(!CanAddItems(itemData, amount))
+        if(CountAvailableItemSpace(itemData) < amount)
         {
             throw new Exception("InventorySystem.AddItems: Dont have enough space.");
         }
 
-        Array<Item> items = GetItems(itemData);
-        for (int i = 0; i < items.Count; i++)
+        Array<Item> _notFullItems = GetNotFullItems(itemData);
+        
+        GD.Print(_notFullItems);
+
+        foreach (Item item in _notFullItems)
         {
-            Item item = Items[i];
-            if(item.ItemData != itemData){
-                continue;
+            int amountToAdd = item.ItemData.MaxStack - item.Amount;
+            if(amount > amountToAdd){
+                item.Add(amountToAdd);
+                amount -= amountToAdd;
             }
-            
-            if(item.Amount == itemData.MaxStack){
-                continue;
-            }
-            else if((item.Amount + amount) <= itemData.MaxStack)
-            {
+            else{
                 item.Add(amount);
-                EmitSignal(nameof(OnInventoryChanged));
-                return;
-            }
-            else
-            {
-                amount -= itemData.MaxStack - item.Amount;
-                item.Add(itemData.MaxStack - item.Amount);
-                EmitSignal(nameof(OnInventoryChanged));
-            }
-        }
-        for(int i = 0; i < Items.Count; i++)
-        {
-            if(Items[i].ItemData != null){
-                continue;
-            }
-            Item item = Items[i];
-            if(item.Amount + amount <= itemData.MaxStack)
-            {
-                item.Set(itemData, amount);
-                EmitSignal(nameof(OnInventoryChanged));
-                return;
-            }
-            else
-            {
-                amount -= itemData.MaxStack - item.Amount;
-                item.Set(itemData, itemData.MaxStack - item.Amount);
-                EmitSignal(nameof(OnInventoryChanged));
+                amount = 0;
+                break;
             }
         }
 
-        GD.PushError("InventorySystem.AddItems: Could not add all Items.");
+        GD.Print(amount);
+
+        if(amount > 0)
+        {
+            Array<Item> _emptySlots = GetEmptySlots();
+            
+            GD.Print(_emptySlots);
+
+            foreach (Item item in _emptySlots)
+            {
+                int amountToAdd = itemData.MaxStack;
+                if(amount > amountToAdd){
+                    item.Set(itemData, amountToAdd);
+                    amount -= amountToAdd;
+                }
+                else{
+                    item.Set(itemData, amount);
+                    amount = 0;
+                    break;
+                }
+            }
+        }
+
+        EmitSignal(nameof(OnInventoryChanged));
+
+        if(amount > 0)
+        {
+            throw new Exception("InventorySystem.AddItems: Error adding all items.");
+        }
     }
 
-    public int CountItems(ItemData itemData){
-        int count = 0;
-        for(int i = 0; i < Items.Count; i++)
-        {
-            Item item = Items[i];
-            if(item.ItemData == itemData)
-            {
-                count += item.Amount;
-            }
-        }
-        return count;
-    }
-
-    public void RemoveItem(Item item)
+    public void RemoveItems(Item item)
     {
         RemoveItems(item.ItemData, item.Amount);
     }
@@ -132,34 +107,77 @@ public partial class InventorySystem : Node
             throw new Exception("InventorySystem.RemoveItems: Dont have enough items.");
         }
 
-        for(int i = 0; i < Items.Count; i++)
+        Array<Item> items = GetItems(itemData);
+        foreach (Item item in items)
         {
-            Item item = Items[i];
-            if(item.ItemData == itemData)
-            {
-                if(item.Amount >= amount)
-                {
-                    item.Remove(amount);
-                    EmitSignal(nameof(OnInventoryChanged));
-                    return;
-                }
-                else
-                {
-                    amount -= item.Amount;
-                    item = new Item(null, 0);
-                    EmitSignal(nameof(OnInventoryChanged));
-                }
+            int amountToRemove = item.Amount;
+            if(amount > amountToRemove){
+                item.Remove(amountToRemove);
+                amount -= amountToRemove;
+            }
+            else{
+                item.Remove(amount);
+                amount = 0;
+                break;
             }
         }
 
-        throw new Exception("InventorySystem.RemoveItems: Could not remove all items.");
+        EmitSignal(nameof(OnInventoryChanged));
+        
+        if(amount > 0)
+        {
+            throw new Exception("InventorySystem.RemoveItems: Could not remove all items.");
+        }
     }
 
-    private Array<Item> GetItems(ItemData itemData){
-        Array<Item> items = new Array<Item>();
-        for(int i = 0; i < Items.Count; i++)
+    public int CountItems(ItemData itemData)
+    {
+        int count = 0;
+        foreach (Item item in _items)
         {
-            Item item = Items[i];
+            if(item.ItemData == itemData)
+            {
+                count += item.Amount;
+            }
+        }
+        return count;
+    }
+
+    public int CountEmptySlots()
+    {
+        int count = 0;
+        foreach (Item item in _items)
+        {
+            if(item.ItemData == null)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public int CountNotFullSlotSpaces(ItemData itemData)
+    {
+        int count = 0;
+        foreach (Item item in GetNotFullItems(itemData))
+        {
+            count += item.ItemData.MaxStack - item.Amount;
+        }
+
+        return count;
+    }
+
+    public int CountAvailableItemSpace(ItemData itemData)
+    {
+        return CountEmptySlots() * itemData.MaxStack + CountNotFullSlotSpaces(itemData);
+    }
+
+    private Array<Item> GetItems(ItemData itemData)
+    {
+        Array<Item> items = new Array<Item>();
+        foreach (Item item in _items)
+        {
             if(item.ItemData == itemData)
             {
                 items.Add(item);
@@ -167,5 +185,38 @@ public partial class InventorySystem : Node
         }
 
         return items;
+    }
+
+    private Array<Item> GetNotFullItems(ItemData itemData)
+    {
+        Array<Item> items = new Array<Item>();
+        foreach (Item item in _items)
+        {
+            if(item.ItemData == itemData && item.Amount < item.ItemData.MaxStack)
+            {
+                items.Add(item);
+            }
+        }
+
+        return items;
+    }
+
+    public Array<Item> GetEmptySlots()
+    {
+        Array<Item> items = new Array<Item>();
+        foreach (Item item in _items)
+        {
+            if(item.ItemData == null)
+            {
+                items.Add(item);
+            }
+        }
+        
+        return items;
+    }
+
+    public InventorySystem GetInventory()
+    {
+        return this;
     }
 }

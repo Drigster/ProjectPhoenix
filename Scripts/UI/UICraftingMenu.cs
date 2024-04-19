@@ -8,20 +8,19 @@ using Godot.Collections;
 [GlobalClass]
 public partial class UICraftingMenu : PanelContainer
 {
-	[Export] private GridContainer _itemsGrid;
-	[Export] private Button _craftButton;
-	[Export] private LineEdit _itemsToCraftInput;
-	[Export] private int _itemsToCraft = 1;
-	[Export] private TextureRect _recepieIcon;
-	[Export] private Label _recepieName;
-	[Export] private Label _recepieDescription;
-	[Export] private VBoxContainer _ingridientsContainer;
+	private GridContainer _itemsGrid;
+	private Button _craftButton;
+	private LineEdit _itemsToCraftInput;
+	private int _itemsToCraft = 1;
+	private TextureRect _recepieIcon;
+	private Label _recepieName;
+	private Label _recepieDescription;
+	private VBoxContainer _ingridientsContainer;
 
 	private CraftingRecepie _selectedRecepie;
 
-	[Export] private InventorySystem _playerInventory;
-	[Export] private InventorySystem _playerHotbar;
-	[Export] private RecepieManager _recepieManager;
+	private InventorySystemGroup _playerInventoryGroup;
+	private RecepieManager _recepieManager;
     private PackedScene _recepieIngridientScene = GD.Load<PackedScene>("res://Scenes/UI/UIRecepieIngredient.tscn");
 
 	public override void _Ready()
@@ -39,8 +38,7 @@ public partial class UICraftingMenu : PanelContainer
 		_recepieDescription.Text = "";
 
 		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
-		_playerInventory = referenceCenter.Player.GetNode<InventorySystem>("%Inventory");
-		_playerHotbar = referenceCenter.Player.GetNode<InventorySystem>("%Hotbar");
+		_playerInventoryGroup = referenceCenter.Player.GetInventory() as InventorySystemGroup;
 
 		_recepieManager = GetNode<RecepieManager>("/root/RecepieManager");
 		
@@ -70,7 +68,7 @@ public partial class UICraftingMenu : PanelContainer
 		_craftButton.Disabled = true;
 
 		_craftButton.Pressed += Craft;
-		_playerInventory.OnInventoryChanged += Reload;
+		_playerInventoryGroup.OnInventoryChanged += Reload;
 		
 		Reload();
 	}
@@ -87,7 +85,7 @@ public partial class UICraftingMenu : PanelContainer
 			UIRecepieIngredient recepieIngredient = _recepieIngridientScene.Instantiate<UIRecepieIngredient>();
 			_ingridientsContainer.AddChild(recepieIngredient);
 
-			int itemsCount = _playerInventory.CountItems(input.ItemData) + _playerHotbar.CountItems(input.ItemData);
+			int itemsCount = _playerInventoryGroup.CountItems(input.ItemData);
 
 			if(itemsCount >= input.Amount * _itemsToCraft){
 				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, input.Amount * _itemsToCraft + "/" + itemsCount, true);
@@ -113,7 +111,7 @@ public partial class UICraftingMenu : PanelContainer
 
 		foreach (Item input in _selectedRecepie.Input)
 		{
-			if(_playerInventory.CountItems(input.ItemData) + _playerHotbar.CountItems(input.ItemData) < input.Amount * _itemsToCraft){
+			if(_playerInventoryGroup.CountItems(input.ItemData)< input.Amount * _itemsToCraft){
 				return;
 			}
 		}
@@ -122,25 +120,18 @@ public partial class UICraftingMenu : PanelContainer
 		{
 			foreach (Item input in _selectedRecepie.Input)
 			{
-				int itemsToRemove = Math.Min(input.Amount, _playerInventory.CountItems(input.ItemData));
-				if(itemsToRemove  > 0){
-					_playerInventory.RemoveItems(input.ItemData, itemsToRemove);
-				}
-				if(input.Amount - itemsToRemove > 0){
-					_playerHotbar.RemoveItems(input.ItemData, input.Amount - itemsToRemove);
-				}
+				_playerInventoryGroup.RemoveItems(input.ItemData, input.Amount);
 			}
-			if(_playerInventory.CanAddItem(_selectedRecepie.Output)){
-				_playerInventory.AddItem(_selectedRecepie.Output);
-			}
-			else if(_playerInventory.CanAddItemsCount(_selectedRecepie.Output.ItemData, out int amount)){
-				_playerInventory.AddItems(_selectedRecepie.Output.ItemData, amount);
-				_playerHotbar.AddItems(_selectedRecepie.Output.ItemData, _selectedRecepie.Output.Amount - amount);
-			}
-			else if(_playerHotbar.CanAddItem(_selectedRecepie.Output)){
-				_playerHotbar.AddItem(_selectedRecepie.Output);
+
+			int amountCrafted = _selectedRecepie.Output.Amount;
+			int availableSpace = _playerInventoryGroup.CountAvailableItemSpace(_selectedRecepie.Output.ItemData);
+
+			if(availableSpace >= amountCrafted){
+				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, amountCrafted);
 			}
 			else{
+				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, availableSpace);
+				amountCrafted -= availableSpace;
 				throw new NotImplementedException("UICraftingMenu._craftButton.Pressed: Drop item.");
 			}
 		}

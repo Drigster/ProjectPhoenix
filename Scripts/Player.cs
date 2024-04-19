@@ -21,8 +21,8 @@ public partial class Player : CharacterBody2D, IStorrage
 		MoveAndSlide();
 	}
 
-    public InventorySystem GetInventory()
+    public IInventorySystem GetInventory()
     {
-		return GetNode<InventorySystem>("%Inventory");
+		return GetNode<IInventorySystem>("%InventorySystemGroup");
     }
 }

@@ -38,7 +38,7 @@ public partial class Tool : ItemData, IAction, ISecondaryAction
                         foreach(Item drop in drops)
                         {
                             if(caller is IStorrage storrage){
-                                if(storrage.GetInventory().CanAddItems(drop)){
+                                if(storrage.GetInventory().CountAvailableItemSpace(drop.ItemData) >= drop.Amount){
                                     storrage.GetInventory().AddItems(drop);
                                     continue;
                                 }
