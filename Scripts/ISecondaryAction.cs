@@ -1,4 +1,6 @@
+using Godot;
+
 public interface ISecondaryAction
 {
-    public bool SecondaryAction();
+    public void SecondaryAction(Item self, Node2D caller, Vector2 interationPosition);
 }

@@ -1,7 +1,7 @@
 using Godot;
 using Godot.Collections;
 
-public partial class Chest : StaticBody2D, IInteractable, IStorrage
+public partial class Storage : Building, IInteractable, IStorrage
 {
 	private AnimationPlayer _animationPlayer;
 	[Export] private int size = 12;
@@ -10,7 +10,7 @@ public partial class Chest : StaticBody2D, IInteractable, IStorrage
 
 	public IInteractable.InteractableTypes InteractableType => IInteractable.InteractableTypes.Storrage;
 
-	public override void _Ready()
+    public override void _Ready()
 	{
 		_inventorySystem = GetNode<InventorySystem>("%InventorySystem");
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");

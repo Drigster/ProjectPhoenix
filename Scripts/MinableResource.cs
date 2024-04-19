@@ -47,7 +47,7 @@ public partial class MinableResource : StaticBody2D
                 {
                     Array<Item> _currentDrops = new Array<Item>();
                     _health -= damage;
-                    GD.Print("Health: " + _health);
+                    
                     if(_health > 0)
                     {
                         for (int i = 0; i < _drops.Count; i++)

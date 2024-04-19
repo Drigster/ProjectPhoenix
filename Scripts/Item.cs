@@ -3,8 +3,8 @@ using Godot;
 [GlobalClass]
 public partial class Item : Resource
 {
-    [Export] private ItemData _itemData;
-    [Export] private int _amount;
+    [Export] protected ItemData _itemData;
+    [Export] protected int _amount;
 
     public ItemData ItemData => _itemData;
     public int Amount => _amount;
@@ -32,6 +32,8 @@ public partial class Item : Resource
         }
         _itemData = itemData;
         _amount = amount;
+
+        EmitChanged();
     }
 
     public void Add(int amount)
@@ -52,6 +54,8 @@ public partial class Item : Resource
         }
 
         _amount = _amount + amount;
+
+        EmitChanged();
     }
 
     public void Remove(int amount)
@@ -70,5 +74,7 @@ public partial class Item : Resource
         if (_amount == 0) {
             _itemData = null;
         }
+
+        EmitChanged();
     }
 }

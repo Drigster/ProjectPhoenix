@@ -14,14 +14,26 @@ public partial class UIPlayerHotbar : UIInventory
 		SetInventoryData(player.GetNode<InventorySystem>("%Hotbar"));
 	}
 
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+
+		if(_selectedSlot != -1){
+			Item item = GetSlot(_selectedSlot).Item;
+			if(item.ItemData is IProcessAction processAction){
+				processAction.ProcessAction();
+			}
+		}
+    }
+
     public override void _Input(InputEvent @event)
     {
 		if (@event.IsActionPressed("action1"))
 		{
 			if(_selectedSlot != -1){
 				Item item = GetSlot(_selectedSlot).Item;
-				if((item.ItemData as Tool) != null){
-					(item.ItemData as Tool).Action(player, player.GetGlobalMousePosition());
+				if(item.ItemData is IAction action){
+					action.Action(item, player, player.GetGlobalMousePosition());
 				}
 			}
 		}
@@ -30,8 +42,8 @@ public partial class UIPlayerHotbar : UIInventory
 		{
 			if(_selectedSlot != -1){
 				Item item = GetSlot(_selectedSlot).Item;
-				if((item.ItemData as ISecondaryAction) != null){
-					(item.ItemData as ISecondaryAction).SecondaryAction();
+				if(item.ItemData is ISecondaryAction secondaryAction){
+					secondaryAction.SecondaryAction(item, player, player.GetGlobalMousePosition());
 				}
 			}
 		}

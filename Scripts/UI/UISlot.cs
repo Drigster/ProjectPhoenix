@@ -22,7 +22,9 @@ public partial class UISlot : Panel
 	public void Set(Item item)
 	{
 		_item = item;
+		
 		Reload();
+		item.Changed += Reload;
 	}
 
 	public void Reload(){

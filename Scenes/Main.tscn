@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b67fs6vryoria"]
+[gd_scene load_steps=21 format=3 uid="uid://b67fs6vryoria"]
 
 [ext_resource type="Script" path="res://Scripts/Main.cs" id="1_jlwdb"]
 [ext_resource type="PackedScene" uid="uid://mdnbbh5ruayu" path="res://Scenes/Objects/Player.tscn" id="2_vtdhk"]
@@ -6,17 +6,30 @@
 [ext_resource type="Resource" uid="uid://b5d0qsue6rs2p" path="res://Resources/Items/Tools/StoneAxe.tres" id="3_fpthk"]
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="4_lim08"]
 [ext_resource type="Script" path="res://Scripts/InteractiveTileMap.cs" id="4_nv8yd"]
+[ext_resource type="Resource" uid="uid://c14gmkddppfj8" path="res://Resources/Items/Chest.tres" id="5_0eilh"]
 [ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="5_lnlsy"]
+[ext_resource type="Resource" uid="uid://c4sh1ob6hmd5c" path="res://Resources/Items/Tools/ToolBox.tres" id="6_pufa1"]
 [ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="6_yhbgv"]
 [ext_resource type="PackedScene" uid="uid://gy141ydha6p2" path="res://Scenes/UI/UIPlayerInventory.tscn" id="7_chxkj"]
 [ext_resource type="PackedScene" uid="uid://uota1sk3cua3" path="res://Scenes/UI/UIPlayerHotbar.tscn" id="8_lvrvh"]
 [ext_resource type="PackedScene" uid="uid://xvibgtdca6t7" path="res://Scenes/Objects/BigTree.tscn" id="9_7skht"]
 [ext_resource type="PackedScene" uid="uid://dn5fky731tmj0" path="res://Scenes/UI/UIDynamicInventory.tscn" id="10_ik0d6"]
 [ext_resource type="PackedScene" uid="uid://dnbi4kymerqne" path="res://Scenes/UI/UICraftingMenu.tscn" id="12_dfor4"]
+[ext_resource type="Script" path="res://Scenes/Testing.cs" id="14_etrnk"]
 
 [sub_resource type="Resource" id="Resource_ct2ti"]
 script = ExtResource("4_lim08")
 _itemData = ExtResource("3_fpthk")
+_amount = 1
+
+[sub_resource type="Resource" id="Resource_f17ty"]
+script = ExtResource("4_lim08")
+_itemData = ExtResource("5_0eilh")
+_amount = 4
+
+[sub_resource type="Resource" id="Resource_1tc06"]
+script = ExtResource("4_lim08")
+_itemData = ExtResource("6_pufa1")
 _amount = 1
 
 [sub_resource type="InputEventAction" id="InputEventAction_4ppby"]
@@ -28,7 +41,7 @@ script = ExtResource("1_jlwdb")
 
 [node name="Player" parent="." instance=ExtResource("2_vtdhk")]
 z_index = 1
-position = Vector2(-67, -10)
+position = Vector2(-54, 0)
 collision_layer = 8
 collision_mask = 2
 
@@ -36,7 +49,7 @@ collision_mask = 2
 Items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="Hotbar" parent="Player" index="6"]
-Items = Array[Object]([SubResource("Resource_ct2ti"), null, null, null, null, null])
+Items = Array[Object]([SubResource("Resource_ct2ti"), SubResource("Resource_f17ty"), SubResource("Resource_1tc06"), null, null, null])
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -89,8 +102,8 @@ grow_vertical = 2
 [node name="CraftingMenu" parent="UI/UIController" instance=ExtResource("12_dfor4")]
 layout_mode = 1
 
-[node name="Node2D" type="Node2D" parent="."]
-position = Vector2(26, -55)
+[node name="Testing" type="Node2D" parent="."]
+script = ExtResource("14_etrnk")
 
 [editable path="Player"]
 [editable path="Player/Interactor"]

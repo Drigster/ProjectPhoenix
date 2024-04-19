@@ -7,7 +7,7 @@ public partial class UIElement : Control
 	[Export]
 	public InputEventAction inputEventAction;
 	[Export]
-	public Boolean isActiveOnStart = false;
+	public bool isActiveOnStart = false;
 
 	public void Close(){
 		Visible = false;

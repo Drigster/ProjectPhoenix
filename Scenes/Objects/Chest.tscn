@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://dmpi2abh5k8xu"]
 
 [ext_resource type="Texture2D" uid="uid://wf8jmrc4aq6t" path="res://Sprites/Mystic Woods/objects/chest_01.png" id="1_6viip"]
-[ext_resource type="Script" path="res://Scripts/Chest.cs" id="1_njf3j"]
 [ext_resource type="Script" path="res://Scripts/InventorySystem.cs" id="1_o3k2d"]
+[ext_resource type="Script" path="res://Scripts/Storage.cs" id="1_wnqab"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r8mgn"]
 atlas = ExtResource("1_6viip")
@@ -75,7 +75,7 @@ z_index = 1
 y_sort_enabled = true
 collision_layer = 32770
 collision_mask = 0
-script = ExtResource("1_njf3j")
+script = ExtResource("1_wnqab")
 
 [node name="InventorySystem" type="Node" parent="."]
 unique_name_in_owner = true
@@ -99,3 +99,12 @@ shape = SubResource("RectangleShape2D_b1tdm")
 libraries = {
 "": SubResource("AnimationLibrary_lmc6y")
 }
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 32768
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
+polygon = PackedVector2Array(-6, -7, 6, -7, 7, -6, 7, 5, 6, 6, -6, 6, -7, 5, -7, -6)
