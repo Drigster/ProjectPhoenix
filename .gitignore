@@ -13,3 +13,8 @@ export_presets.cfg
 .mono/
 data_*/
 .godot/editor/create_recent.Node
+ProjectPhoenix.console.exe
+ProjectPhoenix.exe
+ProjectPhoenix.pck
+ProjectPhoenix.sh
+ProjectPhoenix.x86_64

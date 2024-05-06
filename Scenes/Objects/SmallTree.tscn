@@ -1,20 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://xvibgtdca6t7"]
+[gd_scene load_steps=11 format=3 uid="uid://b5k7ccsv34kdx"]
 
-[ext_resource type="Script" path="res://Scripts/MinableResource.cs" id="1_5mod7"]
-[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="2_idt7v"]
-[ext_resource type="Texture2D" uid="uid://8hhg3che7pgr" path="res://Sprites/Mystic Woods/objects/tree.tres" id="2_swah8"]
-[ext_resource type="Script" path="res://Scripts/Item.cs" id="3_srque"]
+[ext_resource type="Script" path="res://Scripts/MinableResource.cs" id="1_18b7f"]
+[ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="2_c0cfr"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="3_03nka"]
+[ext_resource type="Texture2D" uid="uid://fhhvmkyhw0a8" path="res://Sprites/Mystic Woods/objects/objects.png" id="4_poa0o"]
 
 [sub_resource type="Resource" id="Resource_x63lx"]
-script = ExtResource("3_srque")
-_itemData = ExtResource("2_idt7v")
-_amount = 8
+script = ExtResource("3_03nka")
+_itemData = ExtResource("2_c0cfr")
+_amount = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_inu8r"]
+atlas = ExtResource("4_poa0o")
+region = Rect2(128, 96, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1pxq1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_swah8")
+"texture": SubResource("AtlasTexture_inu8r")
 }],
 "loop": true,
 "name": &"Hit",
@@ -61,7 +65,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -27), Vector2(0, -26)]
+"values": [Vector2(0, -23), Vector2(0, -22)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lmc6y"]
@@ -70,24 +74,24 @@ _data = {
 "Hit": SubResource("Animation_wpa2k")
 }
 
-[node name="BigTree" type="StaticBody2D"]
+[node name="SmallTree" type="StaticBody2D"]
 z_index = 1
 y_sort_enabled = true
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("1_5mod7")
+script = ExtResource("1_18b7f")
 _level = 1
-_health = 10
+_health = 5
 _drops = [SubResource("Resource_x63lx")]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(24, 58)
+position = Vector2(16, 46)
 scale = Vector2(0.8002, 0.8002)
 sprite_frames = SubResource("SpriteFrames_1pxq1")
 animation = &"Hit"
 speed_scale = 0.0
-offset = Vector2(0, -26)
+offset = Vector2(0, -22)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -95,8 +99,9 @@ libraries = {
 }
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
 position = Vector2(24, 26)
-polygon = PackedVector2Array(-12, 21, -12, 29, -7, 32, 0, 31, 3, 31, 3, 32, 10, 32, 10, 28, 12, 28, 12, 24, 7, 19, -10, 19)
+polygon = PackedVector2Array(-14, 18, -13, 19, -10, 20, -6, 20, -3, 19, -2, 18, -2, 15, -4, 13, -12, 13, -14, 15)
 
 [node name="HitArea" type="Area2D" parent="."]
 collision_layer = 32768
@@ -106,7 +111,7 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
 position = Vector2(24, 26)
-polygon = PackedVector2Array(-12, 21, -12, 29, -7, 32, 10, 32, 12, 28, 12, 24, 9, 21, 9, 20, 10, 19, 12, 19, 15, 18, 17, 16, 18, 14, 21, 11, 22, 9, 22, 4, 21, 1, 21, -5, 20, -6, 20, -12, 19, -15, 16, -21, 14, -23, 11, -23, 9, -25, 2, -25, 1, -26, -4, -26, -6, -24, -11, -24, -13, -22, -16, -20, -18, -18, -19, -16, -20, -15, -21, -13, -21, -7, -22, -6, -23, -4, -23, 0, -22, 2, -22, 9, -20, 11, -20, 12, -18, 14, -18, 15, -16, 17, -14, 18, -13, 19)
+polygon = PackedVector2Array(-15, 16, -14, 18, -13, 19, -10, 20, -6, 20, -3, 19, -2, 18, -1, 16, 1, 14, 1, 11, 2, 10, 2, 6, 3, 5, 3, 0, 2, -1, 2, -9, 1, -10, 1, -15, 0, -16, -1, -19, -2, -20, -11, -20, -12, -19, -14, -18, -16, -16, -17, -14, -17, -9, -18, -8, -18, -7, -20, -3, -20, 0, -19, 3, -19, 7, -18, 9, -18, 13)
 
 [node name="Particles" type="CPUParticles2D" parent="."]
 unique_name_in_owner = true
