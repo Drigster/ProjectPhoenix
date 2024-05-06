@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D, IStorrage
 	private AnimationTree _animationTree;
 	public override void _Ready(){
 		_animationTree = GetNode<AnimationTree>("AnimationTree");
+		ReferenceCenter.Player = this;
 	}
 
 	public override void _PhysicsProcess(double delta)

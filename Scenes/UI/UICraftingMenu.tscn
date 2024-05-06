@@ -78,6 +78,7 @@ layout_mode = 2
 
 [node name="ItemsGrid" type="GridContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 columns = 6
 

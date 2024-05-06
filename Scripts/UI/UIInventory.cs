@@ -12,7 +12,7 @@ public partial class UIInventory : PanelContainer
 	public override void _Ready()
 	{
 		_slotsContainer = GetNode<GridContainer>("MarginContainer/ItemGrid");
-		_transferSlot = GetNode<ReferenceCenter>("/root/ReferenceCenter").UITransferSlot;
+		_transferSlot = ReferenceCenter.UITransferSlot;
 	}
 
 	public void SetInventoryData(InventorySystem inventoryData)

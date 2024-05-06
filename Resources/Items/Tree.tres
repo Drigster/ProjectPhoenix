@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Blueprint" load_steps=4 format=3 uid="uid://ltawxko2pkka"]
+
+[ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="1_tes7r"]
+[ext_resource type="PackedScene" uid="uid://cyccqrybe0a8v" path="res://Scenes/Objects/TestTree.tscn" id="2_nm5f3"]
+[ext_resource type="Script" path="res://Scripts/Blueprint.cs" id="3_644yx"]
+
+[resource]
+script = ExtResource("3_644yx")
+_placedObject = ExtResource("2_nm5f3")
+_width = 3
+_height = 4
+Name = "Tree"
+Description = ""
+Icon = ExtResource("1_tes7r")
+MaxStack = 10

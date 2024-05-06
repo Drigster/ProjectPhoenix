@@ -1,15 +1,17 @@
 [gd_resource type="Resource" script_class="Blueprint" load_steps=4 format=3 uid="uid://c14gmkddppfj8"]
 
-[ext_resource type="Texture2D" uid="uid://bhpdqhuevcmny" path="res://Sprites/Mystic Woods/objects/chest.tres" id="1_aod12"]
+[ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="1_4xrhf"]
 [ext_resource type="Script" path="res://Scripts/Blueprint.cs" id="1_o4akp"]
-[ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="2_kxx22"]
+[ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="2_dvhj7"]
 
 [resource]
 script = ExtResource("1_o4akp")
-_placedObject = ExtResource("2_kxx22")
+_placedObject = ExtResource("2_dvhj7")
 _width = 1
 _height = 1
+_cellSize = 16
+_buildingDurability = 10
 Name = "Chest"
-Description = ""
-Icon = ExtResource("1_aod12")
+Description = "Left click to place"
+Icon = ExtResource("1_4xrhf")
 MaxStack = 4

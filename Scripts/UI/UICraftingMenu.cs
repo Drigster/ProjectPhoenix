@@ -37,8 +37,7 @@ public partial class UICraftingMenu : PanelContainer
 		_recepieName.Text = "";
 		_recepieDescription.Text = "";
 
-		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
-		_playerInventoryGroup = referenceCenter.Player.GetInventory() as InventorySystemGroup;
+		_playerInventoryGroup = ReferenceCenter.Player.GetInventory() as InventorySystemGroup;
 
 		_recepieManager = GetNode<RecepieManager>("/root/RecepieManager");
 		

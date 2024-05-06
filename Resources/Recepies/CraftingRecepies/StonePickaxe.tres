@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="2_jldme"]
 [ext_resource type="Resource" uid="uid://cdxx3st0h6klg" path="res://Resources/Items/Stone.tres" id="3_42eeg"]
 [ext_resource type="Script" path="res://Scripts/CraftingRecepie.cs" id="3_tjfbk"]
-[ext_resource type="Resource" uid="uid://dd26r3lplqt6a" path="res://Resources/Items/StonePickaxe.tres" id="4_oep5u"]
+[ext_resource type="Resource" uid="uid://dd26r3lplqt6a" path="res://Resources/Items/Tools/StonePickaxe.tres" id="4_e8nwa"]
 
 [sub_resource type="Resource" id="Resource_bud5t"]
 script = ExtResource("2_jldme")
@@ -18,7 +18,7 @@ _amount = 3
 
 [sub_resource type="Resource" id="Resource_quxwl"]
 script = ExtResource("2_jldme")
-_itemData = ExtResource("4_oep5u")
+_itemData = ExtResource("4_e8nwa")
 _amount = 1
 
 [resource]

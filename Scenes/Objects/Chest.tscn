@@ -32,7 +32,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1tdm"]
-size = Vector2(14, 5)
+size = Vector2(14, 8)
 
 [sub_resource type="Animation" id="Animation_78pi7"]
 resource_name = "Close"
@@ -80,19 +80,20 @@ script = ExtResource("1_wnqab")
 [node name="InventorySystem" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_o3k2d")
-Items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null])
+_items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, 6)
+position = Vector2(8, 14)
 sprite_frames = SubResource("SpriteFrames_1pxq1")
 animation = &"Close"
 speed_scale = 0.0
 offset = Vector2(0, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 y_sort_enabled = true
-position = Vector2(0, 3.5)
+position = Vector2(8, 10)
 shape = SubResource("RectangleShape2D_b1tdm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -107,4 +108,5 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
+position = Vector2(8, 8)
 polygon = PackedVector2Array(-6, -7, 6, -7, 7, -6, 7, 5, 6, 6, -6, 6, -7, 5, -7, -6)

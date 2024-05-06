@@ -9,8 +9,7 @@ public partial class UIPlayerHotbar : UIInventory
 	public override void _Ready()
 	{
 		base._Ready();
-		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
-		player = referenceCenter.Player;
+		player = ReferenceCenter.Player;
 		SetInventoryData(player.GetNode<InventorySystem>("%InventorySystemGroup/%Hotbar"));
 	}
 
@@ -23,6 +22,9 @@ public partial class UIPlayerHotbar : UIInventory
 			if(item.ItemData is IProcessAction processAction){
 				processAction.ProcessAction();
 			}
+
+			// TOGO: Remove shit code
+			GetSlot(_selectedSlot).ThemeTypeVariation = "SelectedSlotPanel";
 		}
     }
 
@@ -82,12 +84,22 @@ public partial class UIPlayerHotbar : UIInventory
 		if(_selectedSlot != -1){
 			GetSlot(_selectedSlot).ThemeTypeVariation = "SlotPanel";
 		}
+		
+		Item item = GetSlot(_selectedSlot).Item;
+		if(item.ItemData is IProcessAction processAction){
+			processAction.EndProcessAction();
+		}
+
 		if(slotIndex == _selectedSlot){
 			_selectedSlot = -1;
 			return;
 		}
-		
+
 		_selectedSlot = slotIndex;
+		item = GetSlot(_selectedSlot).Item;
+		if(item.ItemData is IProcessAction processAction2){
+			processAction2.StartProcessAction();
+		}
 		GetSlot(_selectedSlot).ThemeTypeVariation = "SelectedSlotPanel";
 	}
 }

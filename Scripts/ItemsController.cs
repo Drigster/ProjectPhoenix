@@ -6,8 +6,7 @@ public partial class ItemsController : Node
 
 	public override void _Ready()
 	{
-		ReferenceCenter referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
-		referenceCenter.ItemsController = this;
+		ReferenceCenter.ItemsController = this;
 	}
 
 	//TODO: Make items fly in random direction after spawning

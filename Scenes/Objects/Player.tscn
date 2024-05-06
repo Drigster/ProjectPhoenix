@@ -1,10 +1,15 @@
-[gd_scene load_steps=57 format=3 uid="uid://mdnbbh5ruayu"]
+[gd_scene load_steps=65 format=3 uid="uid://mdnbbh5ruayu"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_er5qw"]
 [ext_resource type="Texture2D" uid="uid://bpsfxtndmwwpg" path="res://Sprites/Player/IdleDown.png" id="1_rvew5"]
 [ext_resource type="Texture2D" uid="uid://b7et74wpsssvx" path="res://Sprites/Player/char1.png" id="2_ac4lt"]
+[ext_resource type="Script" path="res://Scripts/InventorySystemGroup.cs" id="4_lfn4s"]
 [ext_resource type="Script" path="res://Scripts/InventorySystem.cs" id="4_wbw1v"]
+[ext_resource type="Resource" uid="uid://b5d0qsue6rs2p" path="res://Resources/Items/Tools/StoneAxe.tres" id="6_3avh6"]
 [ext_resource type="PackedScene" uid="uid://bswmcgon8oau" path="res://Scenes/Interactor.tscn" id="7_15ncf"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="7_ugvy7"]
+[ext_resource type="Resource" uid="uid://c14gmkddppfj8" path="res://Resources/Items/Chest.tres" id="8_m4g3x"]
+[ext_resource type="Resource" uid="uid://c4sh1ob6hmd5c" path="res://Resources/Items/Tools/ToolBox.tres" id="9_0b8gb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_robea"]
 atlas = ExtResource("2_ac4lt")
@@ -467,6 +472,21 @@ states/Walk/position = Vector2(635, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_v6cv1"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_ryl2c"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_l3hfl")]
 graph_offset = Vector2(-32, -15)
 
+[sub_resource type="Resource" id="Resource_8idui"]
+script = ExtResource("7_ugvy7")
+_itemData = ExtResource("6_3avh6")
+_amount = 1
+
+[sub_resource type="Resource" id="Resource_md531"]
+script = ExtResource("7_ugvy7")
+_itemData = ExtResource("8_m4g3x")
+_amount = 4
+
+[sub_resource type="Resource" id="Resource_ps1c1"]
+script = ExtResource("7_ugvy7")
+_itemData = ExtResource("9_0b8gb")
+_amount = 1
+
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
@@ -491,9 +511,6 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_q0xp7")
-}
 tree_root = SubResource("AnimationNodeStateMachine_n1flg")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/isIdle = true
@@ -503,15 +520,20 @@ parameters/Walk/blend_position = Vector2(0, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Inventory" type="Node" parent="."]
+[node name="InventorySystemGroup" type="Node" parent="." node_paths=PackedStringArray("_inventorySystems")]
 unique_name_in_owner = true
-script = ExtResource("4_wbw1v")
-Items = Array[Object]([])
+script = ExtResource("4_lfn4s")
+_inventorySystems = []
 
-[node name="Hotbar" type="Node" parent="."]
+[node name="Hotbar" type="Node" parent="InventorySystemGroup"]
 unique_name_in_owner = true
 script = ExtResource("4_wbw1v")
-Items = Array[Object]([])
+_items = Array[Object]([SubResource("Resource_8idui"), SubResource("Resource_md531"), SubResource("Resource_ps1c1"), null, null, null])
+
+[node name="Inventory" type="Node" parent="InventorySystemGroup"]
+unique_name_in_owner = true
+script = ExtResource("4_wbw1v")
+_items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="Interactor" parent="." instance=ExtResource("7_15ncf")]
 collision_layer = 0

@@ -7,7 +7,6 @@ public partial class UITransferSlot : PanelContainer
 	private Label _amountLabel;
 	private ItemData _transferedData;
 	private int _transferedAmount;
-	private ReferenceCenter _referenceCenter;
 	public bool IsTransfering => _transferedData != null;
 	public ItemData TransferedData => _transferedData;
 	public int TransferedAmount => _transferedAmount;
@@ -16,7 +15,7 @@ public partial class UITransferSlot : PanelContainer
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("AmountLabel");
-		_referenceCenter = GetNode<ReferenceCenter>("/root/ReferenceCenter");
+		ReferenceCenter.UITransferSlot = this;
 	}
 
 	public override void _Process(double delta)

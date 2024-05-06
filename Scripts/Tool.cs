@@ -53,38 +53,19 @@ public partial class Tool : ItemData, IAction, ISecondaryAction
                     building.Hit(10);
                 }
             }
+            else if(_type == ToolTypes.ToolBox){
+                Blueprint blueprint = ReferenceCenter.ChunkSystem.Destroy(interationPosition);
+                if(blueprint != null){
+                    if(caller is IStorrage storage){
+                        storage.GetInventory().AddItems(blueprint, 1);
+                    }
+                }
+            }
         }
     }
 
     public void SecondaryAction(Item self, Node2D caller, Vector2 interationPosition)
     {
-        PhysicsPointQueryParameters2D ray = new PhysicsPointQueryParameters2D
-        {
-            Position = interationPosition,
-            CollideWithAreas = true,
-            CollideWithBodies = false,
-            //CollisionMask = 0b1000000000000000
-        };
 
-        Array<Dictionary> results = caller.GetWorld2D().DirectSpaceState.IntersectPoint(ray);
-        foreach(Dictionary result in results)
-        {
-            if((Area2D)result["collider"] == null)
-            {
-                return;
-            }
-
-            if(_type == ToolTypes.ToolBox){
-                if(((Area2D)result["collider"]).GetParent() is Building building){
-                    if(caller is IStorrage storrage){
-                        storrage.GetInventory().AddItems(building.DismantleWith(this), 1);
-                    }
-                    else {
-                        // TODO: Drop
-                        GD.PushWarning("Drop");
-                    }
-                }
-            }
-        }
     }
 }

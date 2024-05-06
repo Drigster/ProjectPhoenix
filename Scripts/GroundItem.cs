@@ -13,7 +13,7 @@ public partial class GroundItem : RigidBody2D
 
 	public override void _Ready()
 	{
-		_itemsController = GetNode<ReferenceCenter>("/root/ReferenceCenter").ItemsController;
+		_itemsController = ReferenceCenter.ItemsController;
 	}
 
 	public void SetItem(Item item)

@@ -47,8 +47,6 @@ public partial class InventorySystem : Node, IInventorySystem
         }
 
         Array<Item> _notFullItems = GetNotFullItems(itemData);
-        
-        GD.Print(_notFullItems);
 
         foreach (Item item in _notFullItems)
         {
@@ -64,13 +62,9 @@ public partial class InventorySystem : Node, IInventorySystem
             }
         }
 
-        GD.Print(amount);
-
         if(amount > 0)
         {
             Array<Item> _emptySlots = GetEmptySlots();
-            
-            GD.Print(_emptySlots);
 
             foreach (Item item in _emptySlots)
             {
