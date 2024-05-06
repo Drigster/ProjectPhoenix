@@ -21,7 +21,7 @@ public partial class MainMenu : Control
     {
 		if(_isLoadingStarted){
 			ResourceLoader.ThreadLoadStatus sceneLoadStatus = ResourceLoader.LoadThreadedGetStatus(_mainSceneResourceString, progress);
-			_progressLabel.Text = Mathf.FloorToInt((int)progress[0] * 100) + "%";
+			_progressLabel.Text = Mathf.FloorToInt((float)progress[0] * 100) + "%";
 			if(sceneLoadStatus == ResourceLoader.ThreadLoadStatus.Loaded){
 				GetTree().ChangeSceneToPacked(ResourceLoader.LoadThreadedGet(_mainSceneResourceString) as PackedScene);
 			}
