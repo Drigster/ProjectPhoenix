@@ -6,7 +6,7 @@ public partial class InteractiveTileMap : TileMap
 {
 	[Export] public Dictionary<int, PackedScene> TileData;
 
-	public async override void _Ready()
+	public async override void _EnterTree()
 	{
 		await ToSignal(GetTree(), "process_frame");
 		ReplaceTilesWithScenes(TileData);

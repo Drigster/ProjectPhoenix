@@ -87,7 +87,6 @@ _drops = [SubResource("Resource_x63lx")]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(16, 31)
-scale = Vector2(0.8002, 0.8002)
 sprite_frames = SubResource("SpriteFrames_1pxq1")
 animation = &"Hit"
 speed_scale = 0.0
@@ -109,7 +108,6 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitArea"]
-visible = false
 position = Vector2(24, 26)
 polygon = PackedVector2Array(-24, 1, -21, 2, -20, 4, -18, 5, -7, 5, -3, 4, 3, 4, 5, 1, 6, 0, 8, -1, 8, -4, 7, -5, 7, -10, 7, -16, 4, -19, 4, -22, 2, -24, 0, -24, -2, -26, -5, -26, -7, -24, -11, -24, -12, -25, -16, -25, -21, -20, -22, -20, -23, -19, -23, -13, -24, -12)
 

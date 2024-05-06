@@ -83,7 +83,6 @@ _drops = [SubResource("Resource_x63lx")]
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(24, 58)
-scale = Vector2(0.8002, 0.8002)
 sprite_frames = SubResource("SpriteFrames_1pxq1")
 animation = &"Hit"
 speed_scale = 0.0
