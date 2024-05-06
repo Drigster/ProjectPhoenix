@@ -12,6 +12,8 @@ script = ExtResource("2_mk8tl")
 _type = 2
 _level = 1
 Name = "Tool bag"
-Description = "Left click to dismantle building"
+Description = "Bag of tools. Is used to dismantle buildings.
+
+Left click to dismantle building"
 Icon = SubResource("AtlasTexture_yq74b")
 MaxStack = 1

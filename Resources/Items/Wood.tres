@@ -10,6 +10,6 @@ region = Rect2(0, 544, 32, 32)
 [resource]
 script = ExtResource("2_ba8gg")
 Name = "Wood"
-Description = "I pice of wood"
+Description = "A pice of wood. Is used in some crafting recepies."
 Icon = SubResource("AtlasTexture_pve2x")
 MaxStack = 8

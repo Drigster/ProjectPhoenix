@@ -12,6 +12,8 @@ _height = 1
 _cellSize = 16
 _buildingDurability = 10
 Name = "Chest"
-Description = "Left click to place"
+Description = "Can store 12 stacks of items
+
+Left click to place"
 Icon = ExtResource("1_4xrhf")
 MaxStack = 4

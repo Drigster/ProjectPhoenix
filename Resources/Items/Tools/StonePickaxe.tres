@@ -12,6 +12,6 @@ script = ExtResource("2_f4dqy")
 _type = 1
 _level = 1
 Name = "Stone Pickaxe"
-Description = ""
+Description = "Pickaxe made of stone. Not very durable."
 Icon = SubResource("AtlasTexture_rlkhm")
 MaxStack = 1

@@ -10,6 +10,6 @@ region = Rect2(352, 608, 32, 32)
 [resource]
 script = ExtResource("1_c5n0g")
 Name = "Plank"
-Description = ""
+Description = "Wooden plank. Is used in some crafting recepies."
 Icon = SubResource("AtlasTexture_lqakg")
 MaxStack = 16

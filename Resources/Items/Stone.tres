@@ -10,6 +10,6 @@ region = Rect2(32, 544, 32, 32)
 [resource]
 script = ExtResource("2_hxx0h")
 Name = "Stone"
-Description = ""
+Description = "Regular stone. Is used in some crafting recepies."
 Icon = SubResource("AtlasTexture_s7cbi")
 MaxStack = 8

@@ -12,6 +12,6 @@ script = ExtResource("2_wta7v")
 _type = 0
 _level = 1
 Name = "Stone axe"
-Description = ""
+Description = "Axe made of stone. Not very durable."
 Icon = SubResource("AtlasTexture_yq74b")
 MaxStack = 1
