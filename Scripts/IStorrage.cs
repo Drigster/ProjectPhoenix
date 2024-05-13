@@ -1,6 +1,4 @@
-using Godot;
-
 public interface IStorrage
 {
-    public IInventorySystem GetInventory();
+	public IInventorySystem GetInventory();
 }

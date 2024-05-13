@@ -22,18 +22,20 @@ public partial class UISlot : Panel
 	public void Set(Item item)
 	{
 		_item = item;
-		
+
 		Reload();
 		item.Changed += Reload;
 	}
 
-	public void Reload(){
-		if(_item != null && _item.ItemData != null){
+	public void Reload()
+	{
+		if (_item != null && _item.ItemData != null)
+		{
 			_icon.Texture = _item.ItemData.Icon;
 			_amountLabel.Text = _item.Amount.ToString();
 			TooltipText = _item.ItemData.Name + "\n\n" + _item.ItemData.Description;
 
-			if(_item.Amount == 1 || !_item.ItemData.IsStackable)
+			if (_item.Amount == 1 || !_item.ItemData.IsStackable)
 			{
 				_amountLabel.Visible = false;
 			}
@@ -42,7 +44,8 @@ public partial class UISlot : Panel
 				_amountLabel.Visible = true;
 			}
 		}
-		else{
+		else
+		{
 			_icon.Texture = null;
 			_amountLabel.Text = "";
 			_amountLabel.Visible = false;
@@ -50,10 +53,11 @@ public partial class UISlot : Panel
 		}
 	}
 
-    private void OnGuiInput(InputEvent @event)
-    {
-		if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed){
-        	EmitSignal(nameof(OnSlotClicked), @event);
+	private void OnGuiInput(InputEvent @event)
+	{
+		if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed)
+		{
+			EmitSignal(nameof(OnSlotClicked), @event);
 		}
-    }
+	}
 }

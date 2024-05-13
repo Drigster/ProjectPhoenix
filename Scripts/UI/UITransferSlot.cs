@@ -11,7 +11,7 @@ public partial class UITransferSlot : PanelContainer
 	public ItemData TransferedData => _transferedData;
 	public int TransferedAmount => _transferedAmount;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		_icon = GetNode<TextureRect>("MarginContainer/TextureRect");
 		_amountLabel = GetNode<Label>("AmountLabel");
@@ -20,19 +20,20 @@ public partial class UITransferSlot : PanelContainer
 
 	public override void _Process(double delta)
 	{
-		if(IsTransfering)
+		if (IsTransfering)
 		{
 			Position = GetGlobalMousePosition();
 		}
 	}
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
-		if (@event.IsActionPressed("cancel")){
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("cancel"))
+		{
 			//AbortTransfer();
 			AcceptEvent();
 		}
-    }
+	}
 
 	public void StartTransfer(UISlot fromSlot, int amount)
 	{
@@ -44,33 +45,33 @@ public partial class UITransferSlot : PanelContainer
 		fromSlot.Reload();
 	}
 
-    public void StartTransfer(UISlot fromSlot)
+	public void StartTransfer(UISlot fromSlot)
 	{
 		StartTransfer(fromSlot, fromSlot.Item.Amount);
 	}
 
 	public void TransferTo(UISlot toSlot, int amount)
 	{
-		if(toSlot.Item.ItemData != null && toSlot.Item.ItemData != _transferedData)
+		if (toSlot.Item.ItemData != null && toSlot.Item.ItemData != _transferedData)
 		{
 			throw new Exception("UITransferSlot.TransferTo | Can't transfer items of different types");
 		}
 
-		if(toSlot.Item.ItemData == null)
+		if (toSlot.Item.ItemData == null)
 		{
 			toSlot.Item.Set(_transferedData, amount);
 		}
 		else
 		{
-			if(toSlot.Item.Amount + amount > toSlot.Item.ItemData.MaxStack)
+			if (toSlot.Item.Amount + amount > toSlot.Item.ItemData.MaxStack)
 			{
 				throw new Exception("UITransferSlot.TransferTo | Can't transfer items, target slot will be overflown");
 			}
-			
+
 			toSlot.Item.Add(amount);
 		}
 
-		if(_transferedAmount - amount > 0)
+		if (_transferedAmount - amount > 0)
 		{
 			_transferedAmount -= amount;
 			ReloadVisual();
@@ -88,23 +89,24 @@ public partial class UITransferSlot : PanelContainer
 
 	public void SwapWith(UISlot slot)
 	{
-		if(slot.Item.ItemData == null)
+		if (slot.Item.ItemData == null)
 		{
 			throw new Exception("UITransferSlot.SwapWith | Can't swap with empty slot");
 		}
 		ItemData tempData = slot.Item.ItemData;
 		int tempAmount = slot.Item.Amount;
-		
+
 		slot.Item.Set(_transferedData, _transferedAmount);
 		_transferedData = tempData;
 		_transferedAmount = tempAmount;
 		ReloadVisual();
 	}
 
-	private void ReloadVisual(){
+	private void ReloadVisual()
+	{
 		_icon.Texture = _transferedData.Icon;
 		_amountLabel.Text = _transferedAmount.ToString();
-		if(_transferedAmount == 1 || !_transferedData.IsStackable)
+		if (_transferedAmount == 1 || !_transferedData.IsStackable)
 		{
 			_amountLabel.Visible = false;
 		}

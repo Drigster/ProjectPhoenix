@@ -23,22 +23,26 @@ public partial class GroundItem : RigidBody2D
 		_amountLabel.Text = _item.Amount.ToString();
 	}
 
-	public void OnBodyEntered(Node2D body){
-		if(body == this){
+	public void OnBodyEntered(Node2D body)
+	{
+		if (body == this)
+		{
 			return;
 		}
-        if(body is not GroundItem){
-            return;
-        }
-		
-		if(TryStack(body as GroundItem)){
+		if (body is not GroundItem)
+		{
+			return;
+		}
+
+		if (TryStack(body as GroundItem))
+		{
 			body.QueueFree();
 		}
-    }
+	}
 
-    private bool TryStack(GroundItem groundItem)
-    {
-        if (groundItem.GetInstanceId() < GetInstanceId())
+	private bool TryStack(GroundItem groundItem)
+	{
+		if (groundItem.GetInstanceId() < GetInstanceId())
 		{
 			return false;
 		}
@@ -56,5 +60,5 @@ public partial class GroundItem : RigidBody2D
 		}
 		_amountLabel.Text = _item.Amount.ToString();
 		return true;
-    }
+	}
 }

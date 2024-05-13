@@ -19,7 +19,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 	private InventorySystemGroup _playerInventoryGroup;
 	private RecepieManager _recepieManager;
-    private PackedScene _recepieIngridientScene = GD.Load<PackedScene>("res://Scenes/UI/UIRecepieIngredient.tscn");
+	private PackedScene _recepieIngridientScene = GD.Load<PackedScene>("res://Scenes/UI/UIRecepieIngredient.tscn");
 
 	[Export] private InputEventAction _inputEventAction;
 	[Export] private bool _isActiveOnStart;
@@ -44,7 +44,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		_playerInventoryGroup = ReferenceCenter.Player.GetInventory() as InventorySystemGroup;
 
 		_recepieManager = GetNode<RecepieManager>("/root/RecepieManager");
-		
+
 		foreach (Node child in _itemsGrid.GetChildren())
 		{
 			child.QueueFree();
@@ -54,7 +54,8 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		{
 			UICraftingRecepie uICraftingRecepie = new UICraftingRecepie(recepie);
 			_itemsGrid.AddChild(uICraftingRecepie);
-			uICraftingRecepie.OnRecepieClicked += () => {
+			uICraftingRecepie.OnRecepieClicked += () =>
+			{
 				_selectedRecepie = recepie;
 				_recepieIcon.Texture = _selectedRecepie.Output.ItemData.Icon;
 				_recepieName.Text = _selectedRecepie.Output.ItemData.Name;
@@ -72,13 +73,14 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 		_craftButton.Pressed += Craft;
 		_playerInventoryGroup.OnInventoryChanged += Reload;
-		
+
 		Reload();
 	}
 
 	public void Reload()
 	{
-		foreach (Control child in _ingridientsContainer.GetChildren()){
+		foreach (Control child in _ingridientsContainer.GetChildren())
+		{
 			child.QueueFree();
 		}
 
@@ -90,10 +92,12 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 			int itemsCount = _playerInventoryGroup.CountItems(input.ItemData);
 
-			if(itemsCount >= input.Amount * _itemsToCraft){
+			if (itemsCount >= input.Amount * _itemsToCraft)
+			{
 				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, (input.Amount * _itemsToCraft) + "/" + itemsCount, true);
 			}
-			else{
+			else
+			{
 				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, (input.Amount * _itemsToCraft) + "/" + itemsCount, false);
 				isEnoughResources = false;
 			}
@@ -101,20 +105,23 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 		_craftButton.Disabled = !isEnoughResources;
 
-		if(_itemsToCraft == 0){
+		if (_itemsToCraft == 0)
+		{
 			_craftButton.Disabled = true;
 		}
 	}
 
 	public void Craft()
 	{
-		if (_selectedRecepie == null){
+		if (_selectedRecepie == null)
+		{
 			return;
 		}
 
 		foreach (Item input in _selectedRecepie.Input)
 		{
-			if(_playerInventoryGroup.CountItems(input.ItemData)< input.Amount * _itemsToCraft){
+			if (_playerInventoryGroup.CountItems(input.ItemData) < input.Amount * _itemsToCraft)
+			{
 				return;
 			}
 		}
@@ -129,10 +136,12 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 			int amountCrafted = _selectedRecepie.Output.Amount;
 			int availableSpace = _playerInventoryGroup.CountAvailableItemSpace(_selectedRecepie.Output.ItemData);
 
-			if(availableSpace >= amountCrafted){
+			if (availableSpace >= amountCrafted)
+			{
 				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, amountCrafted);
 			}
-			else{
+			else
+			{
 				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, availableSpace);
 				amountCrafted -= availableSpace;
 				throw new NotImplementedException("UICraftingMenu._craftButton.Pressed: Drop item.");
@@ -140,19 +149,23 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		}
 	}
 
-	public void OnInputTextChanged(string new_text){
+	public void OnInputTextChanged(string new_text)
+	{
 		int caretPos = _itemsToCraftInput.CaretColumn;
 		string numString = Regex.Replace(new_text.Substr(0, caretPos), @"[^0-9]", "");
 		int newCaretPos = numString.Length;
 
-		if(caretPos < new_text.Length){
+		if (caretPos < new_text.Length)
+		{
 			numString += Regex.Replace(new_text.Substr(caretPos, new_text.Length - caretPos), @"[^0-9]", "");
 		}
 
-		if(numString == ""){
+		if (numString == "")
+		{
 			_itemsToCraft = 1;
 		}
-		else{
+		else
+		{
 			_itemsToCraft = numString.ToInt();
 		}
 		_itemsToCraftInput.Text = numString;
@@ -160,14 +173,17 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		Reload();
 	}
 
-	public void OnPlusButtonPressed(){
+	public void OnPlusButtonPressed()
+	{
 		_itemsToCraft++;
 		_itemsToCraftInput.Text = _itemsToCraft.ToString();
 		Reload();
 	}
 
-	public void OnMinusButtonPressed(){
-		if(_itemsToCraft > 1){
+	public void OnMinusButtonPressed()
+	{
+		if (_itemsToCraft > 1)
+		{
 			_itemsToCraft--;
 			_itemsToCraftInput.Text = _itemsToCraft.ToString();
 			Reload();

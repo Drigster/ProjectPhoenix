@@ -1,16 +1,15 @@
 using Godot;
-using Godot.Collections;
 
 public partial class Storage : Building, IInteractable, IStorrage
 {
 	private AnimationPlayer _animationPlayer;
-	[Export] private int size = 12;
-	IInventorySystem _inventorySystem;
+	[Export] private int _size = 12;
+	private IInventorySystem _inventorySystem;
 	private SignalCenter _signalCenter;
 
 	public IInteractable.InteractableTypes InteractableType => IInteractable.InteractableTypes.Storrage;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		_inventorySystem = GetNode<IInventorySystem>("%InventorySystem");
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");
@@ -31,8 +30,8 @@ public partial class Storage : Building, IInteractable, IStorrage
 		_animationPlayer.Play("Close");
 	}
 
-    public IInventorySystem GetInventory()
-    {
-        return _inventorySystem;
-    }
+	public IInventorySystem GetInventory()
+	{
+		return _inventorySystem;
+	}
 }

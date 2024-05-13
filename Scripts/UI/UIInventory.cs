@@ -4,7 +4,7 @@ using Godot;
 [GlobalClass]
 public partial class UIInventory : PanelContainer
 {
-	private PackedScene SlotScene = GD.Load<PackedScene>("res://Scenes/UI/UISlot.tscn");
+	private PackedScene _slotScene = GD.Load<PackedScene>("res://Scenes/UI/UISlot.tscn");
 	private GridContainer _slotsContainer;
 	private InventorySystem _inventorySystem;
 	private UITransferSlot _transferSlot;
@@ -17,7 +17,7 @@ public partial class UIInventory : PanelContainer
 
 	public void SetInventoryData(InventorySystem inventoryData)
 	{
-		if(inventoryData != null)
+		if (inventoryData != null)
 		{
 			_inventorySystem = inventoryData;
 			_inventorySystem.OnInventoryChanged += Reload;
@@ -36,41 +36,45 @@ public partial class UIInventory : PanelContainer
 			child.QueueFree();
 		}
 
-		if(_inventorySystem == null)
+		if (_inventorySystem == null)
 		{
 			return;
 		}
 
 		for (int i = 0; i < _inventorySystem.Items.Count; i++)
 		{
-			UISlot slotScene = SlotScene.Instantiate<UISlot>();
+			UISlot slotScene = _slotScene.Instantiate<UISlot>();
 			slotScene.Name = "Slot " + i;
 			_slotsContainer.AddChild(slotScene);
 
-			if(_inventorySystem.Items[i] != null)
+			if (_inventorySystem.Items[i] != null)
 			{
 				slotScene.Set(_inventorySystem.Items[i]);
 			}
 
-			slotScene.OnSlotClicked += (inputEvent) => {
-				if(inputEvent is InputEventMouseButton mouseButton && mouseButton.Pressed && mouseButton.ButtonIndex == MouseButton.Left)
+			slotScene.OnSlotClicked += (inputEvent) =>
+			{
+				if (inputEvent is InputEventMouseButton mouseButton && mouseButton.Pressed && mouseButton.ButtonIndex == MouseButton.Left)
 				{
-					if(_transferSlot.IsTransfering)
+					if (_transferSlot.IsTransfering)
 					{
-						if(slotScene.Item.ItemData == _transferSlot.TransferedData)
+						if (slotScene.Item.ItemData == _transferSlot.TransferedData)
 						{
-							if(slotScene.Item.Amount + _transferSlot.TransferedAmount > slotScene.Item.ItemData.MaxStack)
+							if (slotScene.Item.Amount + _transferSlot.TransferedAmount > slotScene.Item.ItemData.MaxStack)
 							{
 								_transferSlot.SwapWith(slotScene);
 							}
-							else{
+							else
+							{
 								_transferSlot.TransferTo(slotScene);
 							}
 						}
-						else if(slotScene.Item.ItemData == null){
+						else if (slotScene.Item.ItemData == null)
+						{
 							_transferSlot.TransferTo(slotScene);
 						}
-						else{
+						else
+						{
 							_transferSlot.SwapWith(slotScene);
 						}
 					}
@@ -80,33 +84,37 @@ public partial class UIInventory : PanelContainer
 					}
 					_inventorySystem.EmitSignal(nameof(_inventorySystem.OnInventoryChanged));
 				}
-				else if(inputEvent is InputEventMouseButton mouseButton2 && mouseButton2.Pressed && mouseButton2.ButtonIndex == MouseButton.Right)
+				else if (inputEvent is InputEventMouseButton mouseButton2 && mouseButton2.Pressed && mouseButton2.ButtonIndex == MouseButton.Right)
 				{
-					if(_transferSlot.IsTransfering)
+					if (_transferSlot.IsTransfering)
 					{
-						if(slotScene.Item.ItemData == _transferSlot.TransferedData)
+						if (slotScene.Item.ItemData == _transferSlot.TransferedData)
 						{
-							if(slotScene.Item.Amount + _transferSlot.TransferedAmount >= slotScene.Item.ItemData.MaxStack)
+							if (slotScene.Item.Amount + _transferSlot.TransferedAmount >= slotScene.Item.ItemData.MaxStack)
 							{
 								_transferSlot.SwapWith(slotScene);
 							}
-							else{
+							else
+							{
 								_transferSlot.TransferTo(slotScene, 1);
 							}
 							_inventorySystem.EmitSignal(nameof(_inventorySystem.OnInventoryChanged));
 						}
-						else if(slotScene.Item.ItemData == null){
+						else if (slotScene.Item.ItemData == null)
+						{
 							_transferSlot.TransferTo(slotScene, 1);
 							_inventorySystem.EmitSignal(nameof(_inventorySystem.OnInventoryChanged));
 						}
-						else{
+						else
+						{
 							_transferSlot.SwapWith(slotScene);
 							_inventorySystem.EmitSignal(nameof(_inventorySystem.OnInventoryChanged));
 						}
 					}
-					else{
+					else
+					{
 						int splitAmount = 1;
-						if(slotScene.Item.Amount > 1)
+						if (slotScene.Item.Amount > 1)
 						{
 							splitAmount = (int)Math.Floor(slotScene.Item.Amount / 2.0);
 						}
@@ -120,7 +128,8 @@ public partial class UIInventory : PanelContainer
 
 	public UISlot GetSlot(int index)
 	{
-		if(index >= _slotsContainer.GetChildCount()){
+		if (index >= _slotsContainer.GetChildCount())
+		{
 			throw new IndexOutOfRangeException("UIInventory.GetSlot: Index out of range");
 		}
 

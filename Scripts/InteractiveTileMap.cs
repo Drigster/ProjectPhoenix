@@ -20,8 +20,10 @@ public partial class InteractiveTileMap : TileMap
 			{
 				TileData tileData = GetCellTileData(layerId, tilePos);
 				int interactableType = (int)tileData.GetCustomData("InteractableType");
-				if(interactableType != 0){
-					if(scenes.ContainsKey(interactableType)){
+				if (interactableType != 0)
+				{
+					if (scenes.ContainsKey(interactableType))
+					{
 						ReplaceTileWithObject(layerId, tilePos, scenes[interactableType], GetTree().CurrentScene);
 					}
 				}
@@ -29,11 +31,11 @@ public partial class InteractiveTileMap : TileMap
 		}
 	}
 
-    private void ReplaceTileWithObject(int layerId, Vector2I tilePos, PackedScene packedScene, Node parentScene)
-    {
+	private void ReplaceTileWithObject(int layerId, Vector2I tilePos, PackedScene packedScene, Node parentScene)
+	{
 		SetCell(layerId, tilePos, -1);
 		Node2D tileObject = (Node2D)packedScene.Instantiate();
 		parentScene.AddChild(tileObject);
 		tileObject.Position = MapToLocal(tilePos);
-    }
+	}
 }

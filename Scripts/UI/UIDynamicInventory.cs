@@ -15,11 +15,13 @@ public partial class UIDynamicInventory : UIInventory, IUIElement
 		base._Ready();
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");
 
-		_signalCenter.OpenDynamicInventory += (InventorySystem inventorySystem) => {
+		_signalCenter.OpenDynamicInventory += (InventorySystem inventorySystem) =>
+		{
 			SetInventoryData(inventorySystem);
 			Open();
 		};
-		_signalCenter.CloseDynamicInventory += () => {
+		_signalCenter.CloseDynamicInventory += () =>
+		{
 			SetInventoryData(null);
 			Close();
 		};

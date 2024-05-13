@@ -1,88 +1,108 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
 public partial class Interactor : Area2D
 {
-    List<Node2D> _interactablesInRadius = new List<Node2D>();
-    private Node2D _closestInteractableNode;
-    private IInteractable _activeInteractable => (IInteractable)_closestInteractableNode;
-    private IInteractable _interactingWith;
-    private VisualShader _outlineShader = GD.Load<VisualShader>("res://Shaders/Outline.tres");
+	private List<Node2D> _interactablesInRadius = new List<Node2D>();
+	private Node2D _closestInteractableNode;
+	private IInteractable _activeInteractable => (IInteractable)_closestInteractableNode;
+	private IInteractable _interactingWith;
+	private VisualShader _outlineShader = GD.Load<VisualShader>("res://Shaders/Outline.tres");
 
-    public void OnBodyEntered(Node2D body){
-        if(body is not IInteractable){
-            return;
-        }
+	public void OnBodyEntered(Node2D body)
+	{
+		if (body is not IInteractable)
+		{
+			return;
+		}
 
-        _interactablesInRadius.Add(body);
-        RecalculateClosestInteractableAndApplyShader();
-    }
+		_interactablesInRadius.Add(body);
+		RecalculateClosestInteractableAndApplyShader();
+	}
 
-    public void OnBodyExited(Node2D body){
-        if(body is not IInteractable){
-            return;
-        }
-        
-        _interactablesInRadius.Remove(body);
-        RecalculateClosestInteractableAndApplyShader();
+	public void OnBodyExited(Node2D body)
+	{
+		if (body is not IInteractable)
+		{
+			return;
+		}
 
-        if(_interactingWith == body){
-            _interactingWith.EndInteraction();
-            _interactingWith = null;
-        }
-    }
+		_interactablesInRadius.Remove(body);
+		RecalculateClosestInteractableAndApplyShader();
 
-    private void RecalculateClosestInteractableAndApplyShader(){
-        _interactablesInRadius = _interactablesInRadius.OrderBy(x => Position.DistanceTo(x.Position)).ToList();
+		if (_interactingWith == body)
+		{
+			_interactingWith.EndInteraction();
+			_interactingWith = null;
+		}
+	}
 
-        if(_closestInteractableNode != _interactablesInRadius.FirstOrDefault()){
-            if(_closestInteractableNode != null){
-                _closestInteractableNode.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material = null;
-            }
+	private void RecalculateClosestInteractableAndApplyShader()
+	{
+		_interactablesInRadius = _interactablesInRadius.OrderBy(x => Position.DistanceTo(x.Position)).ToList();
 
-            if(_interactablesInRadius.Count == 0){
-                _closestInteractableNode = null;
-                return;
-            }
+		if (_closestInteractableNode != _interactablesInRadius.FirstOrDefault())
+		{
+			if (_closestInteractableNode != null)
+			{
+				_closestInteractableNode.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material = null;
+			}
 
-            _closestInteractableNode = _interactablesInRadius.FirstOrDefault();
-            ShaderMaterial material = new ShaderMaterial(){
-                Shader = _outlineShader
-            };
-            if(((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Resource)
-                material.SetShaderParameter("OutlineColor", new Color(1, 0, 0));
-            else if(((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Storrage)
-                material.SetShaderParameter("OutlineColor", new Color(0, 1, 0));
-            _closestInteractableNode.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material = material;
-        }
-    }
+			if (_interactablesInRadius.Count == 0)
+			{
+				_closestInteractableNode = null;
+				return;
+			}
 
-    public override void _Input(InputEvent @event)
-    {
-        if(@event.IsActionPressed("interact") && _activeInteractable != null){
-            bool isSuccesfull;
-            if(_interactingWith != null){
-                _interactingWith.EndInteraction();
-                _interactingWith = null;
+			_closestInteractableNode = _interactablesInRadius.FirstOrDefault();
+			ShaderMaterial material = new ShaderMaterial()
+			{
+				Shader = _outlineShader
+			};
+			if (((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Resource)
+			{
+				material.SetShaderParameter("OutlineColor", new Color(1, 0, 0));
+			}
+			else if (((IInteractable)_closestInteractableNode).InteractableType == IInteractable.InteractableTypes.Storrage)
+			{
+				material.SetShaderParameter("OutlineColor", new Color(0, 1, 0));
+			}
 
-                if(_interactingWith != _activeInteractable){
-                    _activeInteractable.Interact(this, out isSuccesfull);
+			_closestInteractableNode.GetNode<AnimatedSprite2D>("AnimatedSprite2D").Material = material;
+		}
+	}
 
-                    if(isSuccesfull){
-                        _interactingWith = _activeInteractable;
-                    }
-                }
-            }
-            else{
-                _activeInteractable.Interact(this, out isSuccesfull);
+	public override void _Input(InputEvent @event)
+	{
+		if (@event.IsActionPressed("interact") && _activeInteractable != null)
+		{
+			bool isSuccesfull;
+			if (_interactingWith != null)
+			{
+				_interactingWith.EndInteraction();
+				_interactingWith = null;
 
-                if(isSuccesfull){
-                    _interactingWith = _activeInteractable;
-                }
-            }
-        }
-    }
+				if (_interactingWith != _activeInteractable)
+				{
+					_activeInteractable.Interact(this, out isSuccesfull);
+
+					if (isSuccesfull)
+					{
+						_interactingWith = _activeInteractable;
+					}
+				}
+			}
+			else
+			{
+				_activeInteractable.Interact(this, out isSuccesfull);
+
+				if (isSuccesfull)
+				{
+					_interactingWith = _activeInteractable;
+				}
+			}
+		}
+	}
 }

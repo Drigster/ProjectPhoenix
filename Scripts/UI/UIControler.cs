@@ -1,7 +1,7 @@
-using Godot;
-using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
+using Godot.Collections;
 
 public partial class UIControler : Control
 {
@@ -14,28 +14,35 @@ public partial class UIControler : Control
 	{
 		Visible = true;
 
-		foreach (Node child in GetChildren()){
-			if (child is IUIElement uiElement){
-				if(uiElement is UIPauseMenu pauseMenu)
+		foreach (Node child in GetChildren())
+		{
+			if (child is IUIElement uiElement)
+			{
+				if (uiElement is UIPauseMenu pauseMenu)
 				{
 					_pauseMenu = pauseMenu;
 					_pauseMenu.Visible = false;
 					continue;
 				}
 
-				if(uiElement.InputEventAction != null && uiElement.InputEventAction.Action != ""){
+				if (uiElement.InputEventAction != null && uiElement.InputEventAction.Action != "")
+				{
 					UIActionGroup uiActionGroup = _togglableUiElements.FirstOrDefault(x => x.Action.Action == uiElement.InputEventAction.Action);
-					if (uiActionGroup != null){
+					if (uiActionGroup != null)
+					{
 						uiActionGroup.Elements.Add(uiElement);
 					}
-					else{
-						_togglableUiElements.Add(new UIActionGroup(){
+					else
+					{
+						_togglableUiElements.Add(new UIActionGroup()
+						{
 							Action = uiElement.InputEventAction,
-							Elements = new List<IUIElement>(){uiElement}
+							Elements = new List<IUIElement>() { uiElement }
 						});
 					}
 				}
-				else{
+				else
+				{
 					_nonTogglableUiElements.Add(uiElement);
 				}
 
@@ -48,7 +55,8 @@ public partial class UIControler : Control
 					uiElement.Close();
 				}
 			}
-			else{
+			else
+			{
 				GD.PushError("Child of UIController is not UIElement. Child: " + child.Name + " Deleting...");
 				child.QueueFree();
 			}
@@ -57,27 +65,35 @@ public partial class UIControler : Control
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if(@event.IsActionPressed("cancel") && _isOpen){
+		if (@event.IsActionPressed("cancel") && _isOpen)
+		{
 			HideAll();
 			_isOpen = false;
 			AcceptEvent();
 		}
-		else if(@event.IsActionPressed("pause_toggle") && !_isOpen){
+		else if (@event.IsActionPressed("pause_toggle") && !_isOpen)
+		{
 			_pauseMenu.Visible = true;
 			GetTree().Paused = true;
 			AcceptEvent();
 		}
-		else {
-			foreach (UIActionGroup uiActionGroup in _togglableUiElements){
-				if (@event.IsActionPressed(uiActionGroup.Action.Action)){
-					if(uiActionGroup.IsOpen){
+		else
+		{
+			foreach (UIActionGroup uiActionGroup in _togglableUiElements)
+			{
+				if (@event.IsActionPressed(uiActionGroup.Action.Action))
+				{
+					if (uiActionGroup.IsOpen)
+					{
 						HideAll();
 						_isOpen = false;
 					}
-					else{
+					else
+					{
 						HideAll();
 						uiActionGroup.IsOpen = true;
-						foreach (IUIElement uiElement in uiActionGroup.Elements){
+						foreach (IUIElement uiElement in uiActionGroup.Elements)
+						{
 							uiElement.Open();
 						}
 						_isOpen = true;
@@ -88,10 +104,13 @@ public partial class UIControler : Control
 		}
 	}
 
-	public void HideAll() {
-		foreach (UIActionGroup uiActionGroup in _togglableUiElements){
+	public void HideAll()
+	{
+		foreach (UIActionGroup uiActionGroup in _togglableUiElements)
+		{
 			uiActionGroup.IsOpen = false;
-			foreach (IUIElement uiElement in uiActionGroup.Elements){
+			foreach (IUIElement uiElement in uiActionGroup.Elements)
+			{
 				uiElement.Close();
 			}
 		}

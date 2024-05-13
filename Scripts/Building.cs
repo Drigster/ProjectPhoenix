@@ -1,5 +1,4 @@
 using Godot;
-using Godot.Collections;
 
 public partial class Building : StaticBody2D
 {
@@ -8,11 +7,12 @@ public partial class Building : StaticBody2D
 	private int _durability;
 	private Blueprint.Direction _direction;
 
-    public int Durability => _durability;
+	public int Durability => _durability;
 	public Blueprint Blueprint => _blueprint;
 	public Blueprint.Direction Direction => _direction;
 
-	public static Building Build(Blueprint blueprint, Node2D parrent, Vector2 localPos){
+	public static Building Build(Blueprint blueprint, Node2D parrent, Vector2 localPos)
+	{
 		Building building = blueprint.PlacedObject.Instantiate<Building>();
 		parrent.AddChild(building);
 		building.RotationDegrees = blueprint.GetRotationAngle(blueprint.CurrentDirection);
@@ -24,25 +24,28 @@ public partial class Building : StaticBody2D
 		return building;
 	}
 
-    public void Hit(int damage)
-    {
-		if(_durability - damage > 0){
+	public void Hit(int damage)
+	{
+		if (_durability - damage > 0)
+		{
 			_durability -= damage;
 		}
-		else{
+		else
+		{
 			_durability = 0;
 		}
 
-		if(_durability == 0){
-            // TODO: Drop
+		if (_durability == 0)
+		{
+			// TODO: Drop
 			GD.PushWarning("Drop");
 			QueueFree();
 		}
-    }
+	}
 
-    public Blueprint DismantleWith(Tool tool)
-    {
+	public Blueprint DismantleWith(Tool _)
+	{
 		QueueFree();
 		return _blueprint;
-    }
+	}
 }

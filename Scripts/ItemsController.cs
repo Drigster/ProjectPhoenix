@@ -2,7 +2,7 @@ using Godot;
 
 public partial class ItemsController : Node
 {
-	[Export] public PackedScene _groundItemScene;
+	[Export] public PackedScene GroundItemScene;
 
 	public override void _Ready()
 	{
@@ -26,7 +26,7 @@ public partial class ItemsController : Node
 			}
 			alreadySpawned += amountToSpawn;
 
-			GroundItem groundItem = _groundItemScene.Instantiate<GroundItem>();
+			GroundItem groundItem = GroundItemScene.Instantiate<GroundItem>();
 			groundItem.Position = position;
 			groundItem.SetItem(new Item(itemData, amountToSpawn));
 
