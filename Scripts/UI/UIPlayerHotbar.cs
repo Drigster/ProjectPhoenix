@@ -1,10 +1,15 @@
 using Godot;
 
 [GlobalClass]
-public partial class UIPlayerHotbar : UIInventory
+public partial class UIPlayerHotbar : UIInventory, IUIElement
 {
 	private int _selectedSlot = -1;
 	private Player player;
+	[Export] private InputEventAction _inputEventAction;
+	[Export] private bool _isActiveOnStart;
+
+	public InputEventAction InputEventAction => _inputEventAction;
+	public bool IsActiveOnStart => _isActiveOnStart;
 
 	public override void _Ready()
 	{
@@ -56,26 +61,32 @@ public partial class UIPlayerHotbar : UIInventory
 		if (@event.IsActionPressed("select_slot_1"))
 		{
 			SelectSlot(0);
+			AcceptEvent();
 		}
 		else if (@event.IsActionPressed("select_slot_2"))
 		{
 			SelectSlot(1);
+			AcceptEvent();
 		}
 		else if (@event.IsActionPressed("select_slot_3"))
 		{
 			SelectSlot(2);
+			AcceptEvent();
 		}
 		else if (@event.IsActionPressed("select_slot_4"))
 		{
 			SelectSlot(3);
+			AcceptEvent();
 		}
 		else if (@event.IsActionPressed("select_slot_5"))
 		{
 			SelectSlot(4);
+			AcceptEvent();
 		}
 		else if (@event.IsActionPressed("select_slot_6"))
 		{
 			SelectSlot(5);
+			AcceptEvent();
 		}
     }
 
@@ -101,5 +112,15 @@ public partial class UIPlayerHotbar : UIInventory
 			processAction2.StartProcessAction();
 		}
 		GetSlot(_selectedSlot).ThemeTypeVariation = "SelectedSlotPanel";
+	}
+
+	public void Close()
+	{
+		Visible = false;
+	}
+
+	public void Open()
+	{
+		Visible = true;
 	}
 }

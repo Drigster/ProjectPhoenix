@@ -4,7 +4,9 @@
 bg_color = Color(1, 0.270588, 0.596078, 1)
 
 [resource]
-Button/font_sizes/font_size = 24
+Heading/base_type = &"Label"
+Heading/colors/icon_normal_color = Color(0, 0, 0, 1)
+Heading/font_sizes/font_size = 80
 InventoryMargin/base_type = &"MarginContainer"
 InventoryMargin/constants/margin_bottom = 4
 InventoryMargin/constants/margin_left = 4
@@ -19,7 +21,6 @@ ItemAmount/constants/line_spacing = 0
 ItemAmount/constants/outline_size = 6
 ItemAmount/constants/shadow_outline_size = 0
 ItemAmount/font_sizes/font_size = 16
-Label/font_sizes/font_size = 24
 SelectedSlotPanel/base_type = &"Panel"
 SelectedSlotPanel/styles/panel = SubResource("StyleBoxFlat_nsa6j")
 Slot/base_type = &"PanelContainer"
@@ -29,3 +30,8 @@ SlotMargin/constants/margin_left = 2
 SlotMargin/constants/margin_right = 2
 SlotMargin/constants/margin_top = 2
 SlotPanel/base_type = &"Panel"
+VButtonContainer/base_type = &"VBoxContainer"
+VButtonContainer/constants/separation = 10
+VButtonContainer/font_sizes/font_size = 40
+VMenuButton/base_type = &"Button"
+VMenuButton/font_sizes/font_size = 40

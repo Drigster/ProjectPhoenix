@@ -1,13 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dnbi4kymerqne"]
+[gd_scene load_steps=11 format=3 uid="uid://dnbi4kymerqne"]
 
-[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_ufw4c"]
 [ext_resource type="Script" path="res://Scripts/UI/UICraftingMenu.cs" id="2_24pmd"]
 [ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="3_iqku7"]
 [ext_resource type="Texture2D" uid="uid://f2u4rrxwfhb0" path="res://Sprites/Items.tres" id="4_0qalp"]
 [ext_resource type="PackedScene" uid="uid://blqclpeoac5ec" path="res://Scenes/UI/UIRecepieIngredient.tscn" id="5_8ibsp"]
-
-[sub_resource type="InputEventAction" id="InputEventAction_qon5n"]
-action = &"crafting_toggle"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w45w0"]
 atlas = ExtResource("3_iqku7")
@@ -33,22 +29,7 @@ region = Rect2(160, 320, 32, 32)
 atlas = ExtResource("3_iqku7")
 region = Rect2(192, 320, 32, 32)
 
-[node name="CraftingMenu" type="Control"]
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("1_ufw4c")
-inputEventAction = SubResource("InputEventAction_qon5n")
-
-[node name="UICraftingMenu" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="UICraftingMenu" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -62,27 +43,27 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_24pmd")
 
-[node name="MarginContainer" type="MarginContainer" parent="UICraftingMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"InventoryMargin"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Crafting menu"
 
-[node name="HSplitContainer" type="HBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ItemsGrid" type="GridContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="ItemsGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 columns = 6
 
-[node name="TextureRect" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -91,7 +72,7 @@ texture = SubResource("AtlasTexture_w45w0")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect2" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect2" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -100,7 +81,7 @@ texture = SubResource("AtlasTexture_nr6tb")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect3" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect3" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -109,7 +90,7 @@ texture = SubResource("AtlasTexture_m1dgk")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect4" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -118,7 +99,7 @@ texture = SubResource("AtlasTexture_ki800")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect5" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect5" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -127,7 +108,7 @@ texture = SubResource("AtlasTexture_eg4gp")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="TextureRect6" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
+[node name="TextureRect6" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/ItemsGrid"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -136,24 +117,24 @@ texture = SubResource("AtlasTexture_e0avg")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="PanelContainer" type="PanelContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 custom_minimum_size = Vector2(0, 520)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Icon" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
@@ -162,45 +143,45 @@ texture = ExtResource("4_0qalp")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Name" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Stone Axe
 "
 
-[node name="Description" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(512, 0)
 layout_mode = 2
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. "
 autowrap_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "Ingridients"
 
-[node name="IngridientsContainer" type="VBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="IngridientsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="RecepieIngredient" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+[node name="RecepieIngredient" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
 layout_mode = 2
 
-[node name="RecepieIngredient2" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+[node name="RecepieIngredient2" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
 layout_mode = 2
 
-[node name="RecepieIngredient3" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
+[node name="RecepieIngredient3" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/VBoxContainer/IngridientsContainer" instance=ExtResource("5_8ibsp")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MinusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MinusButton" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -208,7 +189,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 36
 text = "-"
 
-[node name="ItemsToCraftInput" type="LineEdit" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ItemsToCraftInput" type="LineEdit" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 1
@@ -217,7 +198,7 @@ text = "1"
 max_length = 3
 virtual_keyboard_type = 2
 
-[node name="PlusButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PlusButton" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -225,7 +206,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 36
 text = "+"
 
-[node name="MaxButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MaxButton" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(64, 64)
@@ -233,11 +214,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 36
 text = ">"
 
-[node name="Spacer" type="Control" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CraftButton" type="Button" parent="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CraftButton" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 64)
 layout_mode = 2
@@ -245,7 +226,7 @@ focus_mode = 0
 text = "Craft
 "
 
-[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MinusButton" to="UICraftingMenu" method="OnMinusButtonPressed"]
-[connection signal="text_changed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsToCraftInput" to="UICraftingMenu" method="OnInputTextChanged"]
-[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/PlusButton" to="UICraftingMenu" method="OnPlusButtonPressed"]
-[connection signal="pressed" from="UICraftingMenu/MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MaxButton" to="UICraftingMenu" method="OnPlusButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MinusButton" to="." method="OnMinusButtonPressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/ItemsToCraftInput" to="." method="OnInputTextChanged"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/PlusButton" to="." method="OnPlusButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HSplitContainer/PanelContainer/VBoxContainer/HBoxContainer/MaxButton" to="." method="OnPlusButtonPressed"]

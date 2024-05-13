@@ -1,18 +1,18 @@
-[gd_scene load_steps=25 format=3 uid="uid://b67fs6vryoria"]
+[gd_scene load_steps=26 format=3 uid="uid://b67fs6vryoria"]
 
-[ext_resource type="Script" path="res://Scripts/Main.cs" id="1_jlwdb"]
 [ext_resource type="PackedScene" uid="uid://mdnbbh5ruayu" path="res://Scenes/Objects/Player.tscn" id="2_vtdhk"]
 [ext_resource type="Resource" uid="uid://il408oglhlgw" path="res://Resources/Items/Wood.tres" id="3_jkhew"]
 [ext_resource type="Script" path="res://Scripts/Item.cs" id="4_dnewi"]
 [ext_resource type="Resource" uid="uid://cdxx3st0h6klg" path="res://Resources/Items/Stone.tres" id="5_ks48t"]
 [ext_resource type="Resource" uid="uid://c4sh1ob6hmd5c" path="res://Resources/Items/Tools/ToolBox.tres" id="6_wtm40"]
-[ext_resource type="Script" path="res://Scripts/UI/UIController.cs" id="6_yhbgv"]
+[ext_resource type="Script" path="res://Scripts/UI/UIControler.cs" id="6_yhbgv"]
 [ext_resource type="PackedScene" uid="uid://gy141ydha6p2" path="res://Scenes/UI/UIPlayerInventory.tscn" id="7_chxkj"]
 [ext_resource type="PackedScene" uid="uid://uota1sk3cua3" path="res://Scenes/UI/UIPlayerHotbar.tscn" id="8_lvrvh"]
 [ext_resource type="Script" path="res://Scripts/ChunkSystem.cs" id="8_lx0vb"]
 [ext_resource type="PackedScene" uid="uid://dn5fky731tmj0" path="res://Scenes/UI/UIDynamicInventory.tscn" id="10_ik0d6"]
 [ext_resource type="PackedScene" uid="uid://dnbi4kymerqne" path="res://Scenes/UI/UICraftingMenu.tscn" id="12_dfor4"]
 [ext_resource type="PackedScene" uid="uid://dv7nnwo6fsxpd" path="res://Scenes/UI/UITransferSlot.tscn" id="13_glbr2"]
+[ext_resource type="PackedScene" uid="uid://btx1418xypjlp" path="res://Scenes/UI/UIPauseMenu.tscn" id="13_lg2hl"]
 [ext_resource type="TileSet" uid="uid://bwl2lw7tl6w88" path="res://Sprites/Mystic Woods/tilesets/plains.tres" id="14_gsuq4"]
 [ext_resource type="Script" path="res://Scripts/InteractiveTileMap.cs" id="16_c5mot"]
 [ext_resource type="PackedScene" uid="uid://dmpi2abh5k8xu" path="res://Scenes/Objects/Chest.tscn" id="17_tobkw"]
@@ -36,12 +36,14 @@ script = ExtResource("4_dnewi")
 _itemData = ExtResource("6_wtm40")
 _amount = 1
 
-[sub_resource type="InputEventAction" id="InputEventAction_4ppby"]
+[sub_resource type="InputEventAction" id="InputEventAction_m56a6"]
 action = &"inventory_toggle"
+
+[sub_resource type="InputEventAction" id="InputEventAction_wdw4f"]
+action = &"crafting_toggle"
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_jlwdb")
 
 [node name="Player" parent="." instance=ExtResource("2_vtdhk")]
 z_index = 1
@@ -64,19 +66,22 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -572.0
-offset_top = -34.0
+offset_left = -380.0
+offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-text = "This is a demo version, progress will not be saved"
+text = "This is a demo version, progress will not be saved "
 
 [node name="TransferSlot" parent="UI" instance=ExtResource("13_glbr2")]
 z_index = 99
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="UIController" type="Control" parent="UI"]
+[node name="UIControler" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -85,25 +90,25 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_yhbgv")
 
-[node name="PlayerHotbar" parent="UI/UIController" instance=ExtResource("8_lvrvh")]
-isActiveOnStart = true
+[node name="UIPlayerHotbar" parent="UI/UIControler" instance=ExtResource("8_lvrvh")]
+layout_mode = 0
+_isActiveOnStart = true
 
-[node name="PlayerInventory" parent="UI/UIController" instance=ExtResource("7_chxkj")]
+[node name="UIPlayerInventory" parent="UI/UIControler" instance=ExtResource("7_chxkj")]
+layout_mode = 0
 offset_top = 76.0
 offset_bottom = 76.0
-inputEventAction = SubResource("InputEventAction_4ppby")
+_inputEventAction = SubResource("InputEventAction_m56a6")
 
-[node name="DynamicInventory" parent="UI/UIController" instance=ExtResource("10_ik0d6")]
+[node name="UIDynamicInventory" parent="UI/UIControler" instance=ExtResource("10_ik0d6")]
 layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 0
-grow_vertical = 2
 
-[node name="CraftingMenu" parent="UI/UIController" instance=ExtResource("12_dfor4")]
+[node name="UICraftingMenu" parent="UI/UIControler" instance=ExtResource("12_dfor4")]
+layout_mode = 1
+_inputEventAction = SubResource("InputEventAction_wdw4f")
+
+[node name="PauseMenu" parent="UI/UIControler" instance=ExtResource("13_lg2hl")]
+visible = false
 layout_mode = 1
 
 [node name="ChunkSystem" type="Node2D" parent="."]
@@ -158,5 +163,5 @@ vertical_alignment = 1
 
 [editable path="Player"]
 [editable path="Player/Interactor"]
-[editable path="UI/UIController/PlayerHotbar"]
-[editable path="UI/UIController/PlayerInventory"]
+[editable path="UI/UIControler/UIPlayerHotbar"]
+[editable path="UI/UIControler/UIPlayerInventory"]

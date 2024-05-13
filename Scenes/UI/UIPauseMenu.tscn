@@ -1,0 +1,67 @@
+[gd_scene load_steps=2 format=3 uid="uid://btx1418xypjlp"]
+
+[ext_resource type="Script" path="res://Scenes/UI/UIPauseMenu.cs" id="2_2yobf"]
+
+[node name="UIPauseMenu" type="PanelContainer"]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_2yobf")
+
+[node name="Paused" type="Control" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Paused"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 64
+
+[node name="Label" type="Label" parent="Paused/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"Heading"
+text = "Paused
+"
+
+[node name="CenterContainer" type="CenterContainer" parent="Paused"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Paused/CenterContainer"]
+layout_mode = 2
+theme_type_variation = &"VButtonContainer"
+
+[node name="Resume" type="Button" parent="Paused/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"VMenuButton"
+text = "Resume"
+
+[node name="Options" type="Button" parent="Paused/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"VMenuButton"
+text = "Options
+"
+
+[node name="Main menu" type="Button" parent="Paused/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"VMenuButton"
+text = "Main menu"
+
+[node name="Options" type="Control" parent="."]
+visible = false
+layout_mode = 2
+
+[connection signal="pressed" from="Paused/CenterContainer/VBoxContainer/Resume" to="." method="Resume"]
+[connection signal="pressed" from="Paused/CenterContainer/VBoxContainer/Main menu" to="." method="Quit"]

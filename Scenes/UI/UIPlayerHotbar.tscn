@@ -1,42 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://uota1sk3cua3"]
+[gd_scene load_steps=3 format=3 uid="uid://uota1sk3cua3"]
 
-[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_3rn0a"]
 [ext_resource type="Script" path="res://Scripts/UI/UIPlayerHotbar.cs" id="2_kl1r5"]
 [ext_resource type="PackedScene" uid="uid://cctnbpxcvlymi" path="res://Scenes/UI/UISlot.tscn" id="3_fesw3"]
 
-[node name="PlayerHotbar" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("1_3rn0a")
-
-[node name="UIPlayerHotbar" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="UIPlayerHotbar" type="PanelContainer"]
 script = ExtResource("2_kl1r5")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIPlayerHotbar"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"InventoryMargin"
 
-[node name="ItemGrid" type="GridContainer" parent="UIPlayerHotbar/MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 6
 
-[node name="Slot" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2
 
-[node name="Slot2" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot2" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2
 
-[node name="Slot3" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot3" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2
 
-[node name="Slot4" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot4" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2
 
-[node name="Slot5" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot5" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2
 
-[node name="Slot6" parent="UIPlayerHotbar/MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
+[node name="Slot6" parent="MarginContainer/ItemGrid" instance=ExtResource("3_fesw3")]
 layout_mode = 2

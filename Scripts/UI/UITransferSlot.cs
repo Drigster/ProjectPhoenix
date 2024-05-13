@@ -30,6 +30,7 @@ public partial class UITransferSlot : PanelContainer
     {
 		if (@event.IsActionPressed("cancel")){
 			//AbortTransfer();
+			AcceptEvent();
 		}
     }
 

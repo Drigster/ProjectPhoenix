@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
 public partial class UIActionGroup : Resource
 {
-    [Export] public InputEventAction Action;
-    [Export] public Array<UIElement> Elements;
-    [Export] public bool IsOpen = false;
+    public InputEventAction Action;
+    public List<IUIElement> Elements;
+    public bool IsOpen = false;
 }

@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
-public partial class UICraftingMenu : PanelContainer
+public partial class UICraftingMenu : PanelContainer, IUIElement
 {
 	private GridContainer _itemsGrid;
 	private Button _craftButton;
@@ -22,6 +20,12 @@ public partial class UICraftingMenu : PanelContainer
 	private InventorySystemGroup _playerInventoryGroup;
 	private RecepieManager _recepieManager;
     private PackedScene _recepieIngridientScene = GD.Load<PackedScene>("res://Scenes/UI/UIRecepieIngredient.tscn");
+
+	[Export] private InputEventAction _inputEventAction;
+	[Export] private bool _isActiveOnStart;
+
+	public InputEventAction InputEventAction => _inputEventAction;
+	public bool IsActiveOnStart => _isActiveOnStart;
 
 	public override void _Ready()
 	{
@@ -87,10 +91,10 @@ public partial class UICraftingMenu : PanelContainer
 			int itemsCount = _playerInventoryGroup.CountItems(input.ItemData);
 
 			if(itemsCount >= input.Amount * _itemsToCraft){
-				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, input.Amount * _itemsToCraft + "/" + itemsCount, true);
+				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, (input.Amount * _itemsToCraft) + "/" + itemsCount, true);
 			}
 			else{
-				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, input.Amount * _itemsToCraft + "/" + itemsCount, false);
+				recepieIngredient.Set(input.ItemData.Icon, input.ItemData.Name, (input.Amount * _itemsToCraft) + "/" + itemsCount, false);
 				isEnoughResources = false;
 			}
 		}
@@ -168,5 +172,15 @@ public partial class UICraftingMenu : PanelContainer
 			_itemsToCraftInput.Text = _itemsToCraft.ToString();
 			Reload();
 		}
+	}
+
+	public void Close()
+	{
+		Visible = false;
+	}
+
+	public void Open()
+	{
+		Visible = true;
 	}
 }

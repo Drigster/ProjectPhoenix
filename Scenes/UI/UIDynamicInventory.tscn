@@ -1,18 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn5fky731tmj0"]
+[gd_scene load_steps=3 format=3 uid="uid://dn5fky731tmj0"]
 
-[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_iomfb"]
 [ext_resource type="Script" path="res://Scripts/UI/UIDynamicInventory.cs" id="2_fbo0s"]
 [ext_resource type="PackedScene" uid="uid://cctnbpxcvlymi" path="res://Scenes/UI/UISlot.tscn" id="3_s63pj"]
 
-[node name="DynamicInventory" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-script = ExtResource("1_iomfb")
-
-[node name="UIDynamicInventory" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="UIDynamicInventory" type="PanelContainer"]
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
@@ -25,64 +16,64 @@ grow_horizontal = 0
 grow_vertical = 2
 script = ExtResource("2_fbo0s")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIDynamicInventory"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"InventoryMargin"
 
-[node name="ItemGrid" type="GridContainer" parent="UIDynamicInventory/MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 6
 
-[node name="Slot" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot2" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot2" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot3" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot3" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot4" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot4" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot5" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot5" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot6" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot6" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot7" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot7" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot8" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot8" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot9" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot9" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot10" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot10" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot11" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot11" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot12" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot12" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot13" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot13" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot14" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot14" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot15" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot15" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot16" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot16" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot17" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot17" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2
 
-[node name="Slot18" parent="UIDynamicInventory/MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
+[node name="Slot18" parent="MarginContainer/ItemGrid" instance=ExtResource("3_s63pj")]
 layout_mode = 2

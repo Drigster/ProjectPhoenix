@@ -1,24 +1,37 @@
 using Godot;
 
 [GlobalClass]
-public partial class UIDynamicInventory : UIInventory
+public partial class UIDynamicInventory : UIInventory, IUIElement
 {
 	private SignalCenter _signalCenter;
-	private UIElement _parent;
+	[Export] private InputEventAction _inputEventAction;
+	[Export] private bool _isActiveOnStart;
+
+	public InputEventAction InputEventAction => _inputEventAction;
+	public bool IsActiveOnStart => _isActiveOnStart;
 
 	public override void _Ready()
 	{
 		base._Ready();
 		_signalCenter = GetNode<SignalCenter>("/root/SignalCenter");
-		_parent = GetParent<UIElement>();
 
 		_signalCenter.OpenDynamicInventory += (InventorySystem inventorySystem) => {
 			SetInventoryData(inventorySystem);
-			_parent.Visible = true;
+			Open();
 		};
 		_signalCenter.CloseDynamicInventory += () => {
 			SetInventoryData(null);
-			_parent.Visible = false;
+			Close();
 		};
+	}
+
+	public void Close()
+	{
+		Visible = false;
+	}
+
+	public void Open()
+	{
+		Visible = true;
 	}
 }

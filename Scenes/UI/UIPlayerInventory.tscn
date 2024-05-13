@@ -1,78 +1,71 @@
-[gd_scene load_steps=4 format=3 uid="uid://gy141ydha6p2"]
+[gd_scene load_steps=3 format=3 uid="uid://gy141ydha6p2"]
 
-[ext_resource type="Script" path="res://Scripts/UI/UIElement.cs" id="1_j12e3"]
 [ext_resource type="Script" path="res://Scripts/UI/UIPlayerInventory.cs" id="2_bmfe6"]
 [ext_resource type="PackedScene" uid="uid://cctnbpxcvlymi" path="res://Scenes/UI/UISlot.tscn" id="3_f1imk"]
 
-[node name="PlayerInventory" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-script = ExtResource("1_j12e3")
-
-[node name="UIPlayerInventory" type="PanelContainer" parent="."]
-layout_mode = 1
+[node name="UIPlayerInventory" type="PanelContainer"]
 offset_right = 8.0
 offset_bottom = 8.0
 script = ExtResource("2_bmfe6")
 
-[node name="MarginContainer" type="MarginContainer" parent="UIPlayerInventory"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"InventoryMargin"
 
-[node name="ItemGrid" type="GridContainer" parent="UIPlayerInventory/MarginContainer"]
+[node name="ItemGrid" type="GridContainer" parent="MarginContainer"]
 layout_mode = 2
 columns = 6
 
-[node name="Slot" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot2" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot2" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot3" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot3" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot4" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot4" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot5" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot5" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot6" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot6" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot7" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot7" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot8" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot8" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot9" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot9" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot10" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot10" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot11" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot11" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot12" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot12" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot13" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot13" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot14" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot14" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot15" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot15" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot16" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot16" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot17" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot17" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
 
-[node name="Slot18" parent="UIPlayerInventory/MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
+[node name="Slot18" parent="MarginContainer/ItemGrid" instance=ExtResource("3_f1imk")]
 layout_mode = 2
