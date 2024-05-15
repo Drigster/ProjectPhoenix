@@ -35,15 +35,19 @@ public partial class Tool : ItemData, IAction, ISecondaryAction
 					Array<Item> drops = resource.HitWith(this);
 					if (drops != null)
 					{
+						Array<Node> nodes = caller.FindChildren("*", "IInventorySystem");
+						InventorySystem inventorySystem = null;
+						if (nodes.Count > 0)
+						{
+							inventorySystem = ((IInventorySystem)nodes[0]).GetInventory();
+						}
+
 						foreach (Item drop in drops)
 						{
-							if (caller is IStorrage storrage)
+							if (inventorySystem?.CountAvailableItemSpace(drop.ItemData) >= drop.Amount)
 							{
-								if (storrage.GetInventory().CountAvailableItemSpace(drop.ItemData) >= drop.Amount)
-								{
-									storrage.GetInventory().AddItems(drop);
-									continue;
-								}
+								inventorySystem.AddItems(drop);
+								continue;
 							}
 
 							GD.PushWarning("TODO: Drop item on the ground");
@@ -61,10 +65,14 @@ public partial class Tool : ItemData, IAction, ISecondaryAction
 				Blueprint blueprint = ReferenceCenter.ChunkSystem.Destroy(interationPosition);
 				if (blueprint != null)
 				{
-					if (caller is IStorrage storage)
+					Array<Node> nodes = caller.FindChildren("*", "IInventorySystem");
+					InventorySystem inventorySystem = null;
+					if (nodes.Count > 0)
 					{
-						storage.GetInventory().AddItems(blueprint, 1);
+						inventorySystem = ((IInventorySystem)nodes[0]).GetInventory();
 					}
+
+					inventorySystem?.AddItems(blueprint, 1);
 				}
 			}
 		}

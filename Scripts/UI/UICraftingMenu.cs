@@ -2,9 +2,10 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Godot;
+using Godot.Collections;
 
 [GlobalClass]
-public partial class UICraftingMenu : PanelContainer, IUIElement
+public partial class UICraftingMenu : Control, IUIElement
 {
 	private GridContainer _itemsGrid;
 	private Button _craftButton;
@@ -17,7 +18,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 	private CraftingRecepie _selectedRecepie;
 
-	private InventorySystemGroup _playerInventoryGroup;
+	private InventorySystem _playerInventory;
 	private RecepieManager _recepieManager;
 	private PackedScene _recepieIngridientScene = GD.Load<PackedScene>("res://Scenes/UI/UIRecepieIngredient.tscn");
 
@@ -41,7 +42,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		_recepieName.Text = "";
 		_recepieDescription.Text = "";
 
-		_playerInventoryGroup = ReferenceCenter.Player.GetInventory() as InventorySystemGroup;
+		_playerInventory = ((InventorySystemGroup)ReferenceCenter.Player.FindChild("InventoryGroup")).GetInventory();
 
 		_recepieManager = GetNode<RecepieManager>("/root/RecepieManager");
 
@@ -72,7 +73,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		_craftButton.Disabled = true;
 
 		_craftButton.Pressed += Craft;
-		_playerInventoryGroup.OnInventoryChanged += Reload;
+		_playerInventory.OnInventoryChanged += Reload;
 
 		Reload();
 	}
@@ -90,7 +91,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 			UIRecepieIngredient recepieIngredient = _recepieIngridientScene.Instantiate<UIRecepieIngredient>();
 			_ingridientsContainer.AddChild(recepieIngredient);
 
-			int itemsCount = _playerInventoryGroup.CountItems(input.ItemData);
+			int itemsCount = _playerInventory.CountItems(input.ItemData);
 
 			if (itemsCount >= input.Amount * _itemsToCraft)
 			{
@@ -120,7 +121,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 		foreach (Item input in _selectedRecepie.Input)
 		{
-			if (_playerInventoryGroup.CountItems(input.ItemData) < input.Amount * _itemsToCraft)
+			if (_playerInventory.CountItems(input.ItemData) < input.Amount * _itemsToCraft)
 			{
 				return;
 			}
@@ -130,19 +131,19 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 		{
 			foreach (Item input in _selectedRecepie.Input)
 			{
-				_playerInventoryGroup.RemoveItems(input.ItemData, input.Amount);
+				_playerInventory.RemoveItems(input.ItemData, input.Amount);
 			}
 
 			int amountCrafted = _selectedRecepie.Output.Amount;
-			int availableSpace = _playerInventoryGroup.CountAvailableItemSpace(_selectedRecepie.Output.ItemData);
+			int availableSpace = _playerInventory.CountAvailableItemSpace(_selectedRecepie.Output.ItemData);
 
 			if (availableSpace >= amountCrafted)
 			{
-				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, amountCrafted);
+				_playerInventory.AddItems(_selectedRecepie.Output.ItemData, amountCrafted);
 			}
 			else
 			{
-				_playerInventoryGroup.AddItems(_selectedRecepie.Output.ItemData, availableSpace);
+				_playerInventory.AddItems(_selectedRecepie.Output.ItemData, availableSpace);
 				amountCrafted -= availableSpace;
 				throw new NotImplementedException("UICraftingMenu._craftButton.Pressed: Drop item.");
 			}
@@ -151,6 +152,7 @@ public partial class UICraftingMenu : PanelContainer, IUIElement
 
 	public void OnInputTextChanged(string new_text)
 	{
+		GD.Print("Text");
 		int caretPos = _itemsToCraftInput.CaretColumn;
 		string numString = Regex.Replace(new_text.Substr(0, caretPos), @"[^0-9]", "");
 		int newCaretPos = numString.Length;

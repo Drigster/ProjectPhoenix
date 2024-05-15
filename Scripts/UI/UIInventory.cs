@@ -13,6 +13,7 @@ public partial class UIInventory : PanelContainer
 	{
 		_slotsContainer = GetNode<GridContainer>("MarginContainer/ItemGrid");
 		_transferSlot = ReferenceCenter.UITransferSlot;
+		Reload();
 	}
 
 	public void SetInventoryData(InventorySystem inventoryData)
@@ -31,8 +32,9 @@ public partial class UIInventory : PanelContainer
 
 	public void Reload()
 	{
-		foreach (Node child in _slotsContainer.GetChildren())
+		foreach (Control child in _slotsContainer.GetChildren())
 		{
+			child.Visible = false;
 			child.QueueFree();
 		}
 

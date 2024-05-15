@@ -16,14 +16,15 @@ public partial class UIControler : Control
 
 		foreach (Node child in GetChildren())
 		{
+			if (child is UIPauseMenu pauseMenu)
+			{
+				_pauseMenu = pauseMenu;
+				_pauseMenu.Visible = false;
+				continue;
+			}
+
 			if (child is IUIElement uiElement)
 			{
-				if (uiElement is UIPauseMenu pauseMenu)
-				{
-					_pauseMenu = pauseMenu;
-					_pauseMenu.Visible = false;
-					continue;
-				}
 
 				if (uiElement.InputEventAction != null && uiElement.InputEventAction.Action != "")
 				{

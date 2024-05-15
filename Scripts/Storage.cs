@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Storage : Building, IInteractable, IStorrage
+public partial class Storage : Building, IInteractable
 {
 	private AnimationPlayer _animationPlayer;
 	[Export] private int _size = 12;

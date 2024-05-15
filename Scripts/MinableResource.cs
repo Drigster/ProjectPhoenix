@@ -14,7 +14,6 @@ public partial class MinableResource : StaticBody2D
 
 	public enum ResourceTypes { Wood, Stone }
 	public ResourceTypes Type => _type;
-	public IInteractable.InteractableTypes InteractableType => IInteractable.InteractableTypes.Resource;
 
 	public override void _Ready()
 	{
@@ -120,6 +119,4 @@ public partial class MinableResource : StaticBody2D
 		}
 		return null;
 	}
-
-	public void EndInteraction() { }
 }

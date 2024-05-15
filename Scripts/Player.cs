@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class Player : CharacterBody2D, IStorrage
+public partial class Player : CharacterBody2D
 {
 	[Export] private float _speed = 100.0f;
 	private AnimationTree _animationTree;
@@ -21,10 +21,5 @@ public partial class Player : CharacterBody2D, IStorrage
 		_animationTree.Set("parameters/Walk/blend_position", direction);
 
 		MoveAndSlide();
-	}
-
-	public IInventorySystem GetInventory()
-	{
-		return GetNode<IInventorySystem>("%InventorySystemGroup");
 	}
 }

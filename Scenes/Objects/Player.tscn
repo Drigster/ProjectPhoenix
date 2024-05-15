@@ -501,17 +501,17 @@ parameters/Walk/blend_position = Vector2(0, 1)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="InventorySystemGroup" type="Node" parent="." node_paths=PackedStringArray("_inventorySystems")]
+[node name="InventoryGroup" type="Node" parent="." node_paths=PackedStringArray("_inventorySystems")]
 unique_name_in_owner = true
 script = ExtResource("4_lfn4s")
 _inventorySystems = []
 
-[node name="Hotbar" type="Node" parent="InventorySystemGroup"]
+[node name="Hotbar" type="Node" parent="InventoryGroup"]
 unique_name_in_owner = true
 script = ExtResource("4_wbw1v")
 _items = Array[Object]([null, null, null, null, null, null])
 
-[node name="Inventory" type="Node" parent="InventorySystemGroup"]
+[node name="Inventory" type="Node" parent="InventoryGroup"]
 unique_name_in_owner = true
 script = ExtResource("4_wbw1v")
 _items = Array[Object]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
