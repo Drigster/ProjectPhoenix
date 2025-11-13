@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Tool" load_steps=4 format=3 uid="uid://dd26r3lplqt6a"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dd26r3lplqt6a"]
 
 [ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="1_hs8mo"]
-[ext_resource type="Script" path="res://Scripts/Tool.cs" id="2_f4dqy"]
+[ext_resource type="Script" uid="uid://c33o6wuy5huml" path="res://Scripts/Tool.cs" id="2_f4dqy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rlkhm"]
 atlas = ExtResource("1_hs8mo")

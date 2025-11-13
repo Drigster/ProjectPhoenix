@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://o63mu818bvsd"]
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://o63mu818bvsd"]
 
-[ext_resource type="Script" path="res://Scripts/ItemData.cs" id="1_c5n0g"]
+[ext_resource type="Script" uid="uid://b42fq16813ty3" path="res://Scripts/ItemData.cs" id="1_c5n0g"]
 [ext_resource type="Texture2D" uid="uid://wl1cle7bkqu4" path="res://Sprites/Shikashi's Fantasy Icons Pack v2/#1 - Transparent Icons.png" id="1_ku1ex"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lqakg"]

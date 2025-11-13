@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="CraftingRecepie" load_steps=7 format=3 uid="uid://c2n4biqh8o3i4"]
+[gd_resource type="Resource" load_steps=7 format=3 uid="uid://c2n4biqh8o3i4"]
 
-[ext_resource type="Script" path="res://Scripts/Item.cs" id="2_w5fta"]
+[ext_resource type="Script" uid="uid://ddwbys6li1p76" path="res://Scripts/Item.cs" id="2_w5fta"]
 [ext_resource type="Resource" uid="uid://o63mu818bvsd" path="res://Resources/Items/Plank.tres" id="3_7ov5h"]
 [ext_resource type="Resource" uid="uid://c14gmkddppfj8" path="res://Resources/Items/Chest.tres" id="3_vy300"]
-[ext_resource type="Script" path="res://Scripts/CraftingRecepie.cs" id="4_dyg3k"]
+[ext_resource type="Script" uid="uid://cq0fubo1njgpe" path="res://Scripts/CraftingRecepie.cs" id="4_dyg3k"]
 
 [sub_resource type="Resource" id="Resource_bud5t"]
 script = ExtResource("2_w5fta")
